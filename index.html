@@ -193,6 +193,17 @@ html{scroll-padding-top:16px}
   .shell{grid-template-columns:330px minmax(0,1fr);gap:36px}
   .grid9{grid-template-columns:1fr 1fr;gap:12px}
 }
+/* sidebar: one size up, wider on desktop */
+.side-title b{font-size:17.5px}
+.side-head input{font-size:15px;padding:10px 12px}
+.intro-links .nl{font-size:13.5px;padding:5px 11px}
+.side-nav .grp{font-size:13.5px}
+.side-nav>.nl{font-size:15px;padding:6px 8px;gap:11px}
+.side-nav>.nl .tg{font-size:15px;height:28px;min-width:50px}
+.legend{font-size:13.5px}
+@media (min-width:1024px){ .shell{grid-template-columns:340px minmax(0,1fr)} }
+@media (min-width:1400px){ .shell{grid-template-columns:390px minmax(0,1fr);max-width:1640px} }
+
 @media print{
   .side,.fab,.scrim,.stdnav{display:none!important}
   .shell{display:block}
