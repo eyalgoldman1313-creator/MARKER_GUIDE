@@ -347,7 +347,25 @@ tr.flash td{animation:flash 1.6s ease-out}
   table.mk tr.resume::before{content:'כאן עצרת';position:absolute;top:-10px;left:0;background:#E32020;color:#fff;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:4px;z-index:1}
 }
 
+/* hide / show the navigation sidebar (desktop) */
+.nav-hide,.nav-show{display:none}
+@media (min-width:1024px){
+  .nav-hide{display:inline-block;font:inherit;font-size:13px;font-weight:700;padding:4px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+  .nav-hide:hover{border-color:var(--ink2)}
+  body.nav-off .side{display:none}
+  body.nav-off .shell{grid-template-columns:minmax(0,1fr)}
+  body.nav-off main{max-width:1400px;margin:0 auto}
+  body.nav-off .nav-show{display:block;position:fixed;top:14px;right:14px;z-index:20;font:inherit;font-weight:700;font-size:14.5px;padding:9px 14px;border-radius:999px;border:0;background:var(--ink);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.25);cursor:pointer}
+  body.nav-off h1{padding-inline-start:110px}
+  body.nav-off .bar{padding-inline-start:110px}
+}
+@media (min-width:1750px){
+  body.nav-off .shell{grid-template-columns:minmax(0,1fr) 285px}
+  body.nav-off h1,body.nav-off .bar{padding-inline-start:0}
+}
+
 @media print{
+  .nav-show{display:none!important}
   td.ck,.resume-box{display:none!important}
   .rail{display:none!important}
   .side,.fab,.scrim,.stdnav{display:none!important}
@@ -365,7 +383,7 @@ tr.flash td{animation:flash 1.6s ease-out}
 }
 </style></head><body><div class="shell"><aside class="side" id="side" aria-label="ניווט במפרט">
 <div class="side-head">
-<div class="side-title"><b>ניווט בין התקנים</b><button type="button" class="side-x" id="sideClose" aria-label="סגירת הניווט">✕</button></div>
+<div class="side-title"><b>ניווט בין התקנים</b><button type="button" class="nav-hide" id="navHide" title="הסתרת סרגל הניווט">הסתר ›</button><button type="button" class="side-x" id="sideClose" aria-label="סגירת הניווט">✕</button></div>
 <input type="search" id="navq" placeholder="קפיצה לתקן: מספר או שם" aria-label="חיפוש תקן בניווט">
 <div class="resume-box"><button type="button" id="resumeBtn" class="resume-btn" disabled><span class="rb-t">▶ המשך מאיפה שעצרתי</span><span class="rb-s" id="resumeSub">עוד לא סימנת סעיפים</span></button><button type="button" id="resetBtn" class="reset-btn" title="מחיקת כל הסימונים">איפוס</button></div>
 <div class="intro-links">
@@ -446,7 +464,7 @@ tr.flash td{animation:flash 1.6s ease-out}
 </nav>
 </aside>
 <button type="button" class="fab" id="fab" aria-controls="side" aria-expanded="false">☰ תקנים</button>
-<div class="scrim" id="scrim"></div>
+<div class="scrim" id="scrim"></div><button type="button" class="nav-show" id="navShow" title="הצגת סרגל הניווט">☰ ניווט</button>
 <main>
 <h1 id="top">מפרט מרקרים לכרכים</h1>
 <p class="lead">תשעה מרקרים, תשעה תפקידים. כל צבע עונה על שאלה אחת שהבחינה שואלת, וכל צורת סימון אומרת מה עושים עם הטקסט בזמן הבחינה. המפרט כולל 63 תקנים ופרסומים ו־2962 סימונים, כולם מלשון התקן עצמה.</p>
@@ -4423,5 +4441,12 @@ tr.flash td{animation:flash 1.6s ease-out}
     refresh();
   });
   refresh();
+})();
+</script><script>(function(){
+  var K='mg-nav-off';
+  function set(off){ document.body.classList.toggle('nav-off',off); try{ localStorage.setItem(K,off?'1':''); }catch(e){} window.dispatchEvent(new Event('resize')); }
+  try{ if(localStorage.getItem(K)==='1') document.body.classList.add('nav-off'); }catch(e){}
+  document.getElementById('navHide').addEventListener('click',function(){ set(true); });
+  document.getElementById('navShow').addEventListener('click',function(){ set(false); });
 })();
 </script></body></html>
