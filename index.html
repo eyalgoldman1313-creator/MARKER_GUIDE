@@ -217,6 +217,19 @@ html{scroll-padding-top:16px}
   .side .legend{display:none}
 }
 
+/* wide desktops: use the full width; larger legend at the far left */
+@media (min-width:1500px){
+  .shell{grid-template-columns:390px minmax(0,1fr) 285px;max-width:2300px;gap:28px;padding:0 16px}
+  .rail{font-size:15.5px;padding:16px 18px}
+  .rail .rail-t{font-size:17.5px;margin-bottom:6px}
+  .rail h5{font-size:14.5px;margin:14px 0 8px}
+  .rail ul{gap:9px}
+  .rail li{gap:10px}
+  .rail .tg.sm{min-width:32px;height:17px}
+  .rail .lvkey{font-size:14.5px;gap:7px}
+  .rail .lvd{width:10px;height:10px}
+}
+
 @media print{
   .rail{display:none!important}
   .side,.fab,.scrim,.stdnav{display:none!important}
