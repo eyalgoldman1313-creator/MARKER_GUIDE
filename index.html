@@ -206,7 +206,7 @@ html{scroll-padding-top:16px}
 
 /* bookmark legend as a fixed left rail on wide desktops */
 .rail{display:none}
-@media (min-width:1500px){
+@media (min-width:1750px){
   .shell{grid-template-columns:390px minmax(0,1fr) 250px;max-width:1920px;gap:32px}
   .rail{display:block;position:sticky;top:16px;margin:16px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:14px;color:var(--ink);max-height:calc(100vh - 32px);overflow-y:auto}
   .rail .rail-t{display:block;font-size:15.5px;font-weight:900;margin-bottom:4px}
@@ -218,7 +218,7 @@ html{scroll-padding-top:16px}
 }
 
 /* wide desktops: use the full width; larger legend at the far left */
-@media (min-width:1500px){
+@media (min-width:1750px){
   .shell{grid-template-columns:390px minmax(0,1fr) 285px;max-width:2300px;gap:28px;padding:0 16px}
   .rail{font-size:15.5px;padding:16px 18px}
   .rail .rail-t{font-size:17.5px;margin-bottom:6px}
@@ -318,7 +318,37 @@ table.mk td.tx,table.mk td.wy{vertical-align:middle}
 td.wy .ex{margin-inline-start:4px}
 @media (min-width:1024px){ td.wy .ex{font-size:15px;padding:5px 11px 7px} }
 
+/* progress checkboxes + resume bookmark */
+td.ck{width:44px;text-align:center;vertical-align:middle!important;padding:0 4px!important}
+td.ck input{width:22px;height:22px;accent-color:#2E9E1F;cursor:pointer;margin:0;vertical-align:middle}
+tr.done td{background:#F4FAEF}
+tr.done td.tx,tr.done td.wy{opacity:.6}
+tr.resume td{box-shadow:inset 0 3px 0 #E32020}
+tr.resume td.ck{position:relative}
+tr.resume td.ck::before{content:'כאן עצרת';position:absolute;top:-11px;right:4px;background:#E32020;color:#fff;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:4px;white-space:nowrap;z-index:1}
+tr.flash td{animation:flash 1.6s ease-out}
+@keyframes flash{0%,40%{background:#FFF3A6}100%{background:transparent}}
+.resume-box{display:flex;gap:6px;align-items:stretch}
+.resume-btn{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:1px;font:inherit;text-align:start;padding:8px 12px;border-radius:10px;border:0;background:var(--ink);color:#fff;cursor:pointer}
+.resume-btn:disabled{background:var(--line);color:var(--ink2);cursor:default}
+.resume-btn .rb-t{font-weight:900;font-size:14.5px}
+.resume-btn .rb-s{font-size:12.5px;opacity:.85}
+.reset-btn{font:inherit;font-size:12.5px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.side-nav>.nl{grid-template-columns:auto minmax(0,1fr) auto auto}
+.nl .prg{font-size:12px;font-weight:700;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.nl .prg.full{color:#2E9E1F}
+.nl.here{box-shadow:inset -4px 0 0 #E32020}
+@media (max-width:640px){
+  table.mk tr{grid-template-columns:54px 1fr 34px}
+  td.ck{grid-column:3;grid-row:1 / span 3;width:auto;align-self:center}
+  tr.resume td{box-shadow:none}
+  table.mk tr.resume{position:relative;box-shadow:inset 0 3px 0 #E32020}
+  tr.resume td.ck::before{display:none}
+  table.mk tr.resume::before{content:'כאן עצרת';position:absolute;top:-10px;left:0;background:#E32020;color:#fff;font-size:11.5px;font-weight:700;padding:1px 7px;border-radius:4px;z-index:1}
+}
+
 @media print{
+  td.ck,.resume-box{display:none!important}
   .rail{display:none!important}
   .side,.fab,.scrim,.stdnav{display:none!important}
   .shell{display:block}
@@ -337,6 +367,7 @@ td.wy .ex{margin-inline-start:4px}
 <div class="side-head">
 <div class="side-title"><b>ניווט בין התקנים</b><button type="button" class="side-x" id="sideClose" aria-label="סגירת הניווט">✕</button></div>
 <input type="search" id="navq" placeholder="קפיצה לתקן: מספר או שם" aria-label="חיפוש תקן בניווט">
+<div class="resume-box"><button type="button" id="resumeBtn" class="resume-btn" disabled><span class="rb-t">▶ המשך מאיפה שעצרתי</span><span class="rb-s" id="resumeSub">עוד לא סימנת סעיפים</span></button><button type="button" id="resetBtn" class="reset-btn" title="מחיקת כל הסימונים">איפוס</button></div>
 <div class="intro-links">
 <a class="nl intro" href="#top">כללי הסימון</a><a class="nl intro" href="#markers">9 המרקרים</a><a class="nl intro" href="#decide">איך מחליטים</a><a class="nl intro" href="#example">דוגמה</a><a class="nl intro" href="#budget">כמה לסמן</a><a class="nl intro" href="#detail">סינון</a>
 </div>
@@ -4327,5 +4358,70 @@ td.wy .ex{margin-inline-start:4px}
   spy();
   if(location.hash) setTimeout(function(){ jump(location.hash.slice(1)); },0);
   window.addEventListener('hashchange',function(){ if(location.hash) jump(location.hash.slice(1)); });
+})();
+</script><script>(function(){
+  var KEY='mg-done-v1', LAST='mg-last-v1', store={}, last=null;
+  try{ store=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; last=localStorage.getItem(LAST); }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); if(last) localStorage.setItem(LAST,last); else localStorage.removeItem(LAST); }catch(e){} }
+  var cards=[].slice.call(document.querySelectorAll('details.std')), rowsBy={}, rowOf={}, order=[];
+  cards.forEach(function(d){
+    var rows=[].slice.call(d.querySelectorAll('table.mk tr')); rowsBy[d.id]=rows;
+    rows.forEach(function(r,i){
+      var k=d.id+':'+i; r.dataset.k=k; rowOf[k]=r; order.push(k);
+      var td=document.createElement('td'); td.className='ck';
+      var sec=r.querySelector('.sn'); 
+      td.innerHTML='<input type="checkbox" aria-label="עברתי על הסעיף"'+(store[k]?' checked':'')+'>';
+      r.insertBefore(td,r.firstChild); if(store[k]) r.classList.add('done');
+    });
+  });
+  var btn=document.getElementById('resumeBtn'), sub=document.getElementById('resumeSub');
+  function secLabel(r){ // nearest section number at or above this row
+    while(r){ var s=r.querySelector('td.sec .sn'); if(s) return s.textContent.trim(); r=r.previousElementSibling; } return ''; }
+  function target(){ // first unchecked row after the last one checked
+    if(!last||!rowOf[last]) return null;
+    var i=order.indexOf(last);
+    for(var j=i+1;j<order.length;j++){ if(!store[order[j]]) return order[j]; }
+    return last;
+  }
+  function refresh(){
+    cards.forEach(function(d){
+      var rows=rowsBy[d.id], n=0; rows.forEach(function(r){ if(store[r.dataset.k]) n++; });
+      var a=document.querySelector('.side-nav a[data-sid="'+d.id+'"]'); if(!a) return;
+      var p=a.querySelector('.prg'); if(!p){ p=document.createElement('span'); p.className='prg'; a.insertBefore(p,a.querySelector('.lvd')); }
+      p.textContent=n?(n===rows.length?'✓':n+'/'+rows.length):''; p.classList.toggle('full',n===rows.length&&n>0);
+      a.classList.remove('here');
+    });
+    [].forEach.call(document.querySelectorAll('tr.resume'),function(r){ r.classList.remove('resume'); });
+    var t=target();
+    if(t){
+      var r=rowOf[t], sid=t.split(':')[0], card=document.getElementById(sid);
+      r.classList.add('resume');
+      var a=document.querySelector('.side-nav a[data-sid="'+sid+'"]'); if(a) a.classList.add('here');
+      btn.disabled=false;
+      var name=card.querySelector('summary .no').textContent.trim(), sl=secLabel(r);
+      sub.textContent='תקן '+name+(sl?' · סעיף '+sl:'');
+    } else { btn.disabled=true; sub.textContent='עוד לא סימנת סעיפים'; }
+  }
+  document.addEventListener('change',function(e){
+    var c=e.target; if(!c.matches||!c.matches('td.ck input')) return;
+    var r=c.closest('tr'), k=r.dataset.k;
+    if(c.checked){ store[k]=1; last=k; } else { delete store[k]; if(last===k){ var i=order.indexOf(k); last=null; for(var j=i-1;j>=0;j--){ if(store[order[j]]){ last=order[j]; break; } } } }
+    r.classList.toggle('done',c.checked); save(); refresh();
+  });
+  btn.addEventListener('click',function(){
+    var t=target(); if(!t) return; var r=rowOf[t], card=document.getElementById(t.split(':')[0]);
+    card.classList.remove('hide'); card.open=true; r.classList.remove('hide');
+    var side=document.getElementById('side'); if(side.classList.contains('open')) document.getElementById('sideClose').click();
+    setTimeout(function(){ r.scrollIntoView({block:'center'}); r.classList.remove('flash'); void r.offsetWidth; r.classList.add('flash'); },30);
+  });
+  document.getElementById('resetBtn').addEventListener('click',function(){
+    if(!Object.keys(store).length) return;
+    if(!confirm('למחוק את כל הסימונים ואת נקודת ההמשך?')) return;
+    store={}; last=null; save();
+    [].forEach.call(document.querySelectorAll('td.ck input'),function(c){ c.checked=false; });
+    [].forEach.call(document.querySelectorAll('tr.done'),function(r){ r.classList.remove('done'); });
+    refresh();
+  });
+  refresh();
 })();
 </script></body></html>
