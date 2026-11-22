@@ -136,18 +136,55 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
   table.mk tr{border-top:1px solid var(--line);padding:6px 0;display:grid;grid-template-columns:54px 1fr;gap:2px 8px}
   table.mk td{border:0;padding:0} td.sec{grid-row:1 / span 2;width:auto} td.ch{grid-column:2} td.tx{grid-column:2}
 }
-/* larger screens: scale the whole layout up so it fills a desktop monitor */
-@media (min-width:1100px){
-  main{zoom:1.15;max-width:1120px;padding:0 24px 100px}
-  .grid9{grid-template-columns:1fr 1fr;gap:14px}
+
+/* ---------- layout: sidebar + content ---------- */
+.shell{max-width:1480px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);}
+main{max-width:1080px;width:100%}
+.side{position:fixed;inset:0 0 0 auto;width:min(340px,88vw);background:var(--card);border-inline-start:1px solid var(--line);z-index:30;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .22s ease;box-shadow:-8px 0 30px rgba(0,0,0,.12)}
+.side.open{transform:none}
+.side-head{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:14px 14px 10px;border-bottom:1px solid var(--line)}
+.side-head b{font-size:15px}
+.side-head input{grid-column:1 / -1;width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14px;background:var(--paper)}
+.side-x{border:0;background:none;font-size:18px;cursor:pointer;color:var(--ink2);padding:2px 6px;border-radius:6px}
+.side-nav{overflow-y:auto;padding:6px 8px 40px;flex:1;overscroll-behavior:contain}
+.side-nav .grp{margin:14px 8px 4px;font-size:12px;font-weight:900;color:var(--ink2);letter-spacing:.02em}
+.side-nav .grp a{color:inherit;text-decoration:none}
+.nl{display:flex;align-items:baseline;gap:8px;padding:6px 8px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:13.5px;line-height:1.35}
+.nl:hover{background:var(--soft)}
+.nl .n{font-weight:900;min-width:34px;flex:none;font-size:13px}
+.nl .t{flex:1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.nl.intro .t{font-weight:700}
+.lvd{width:7px;height:7px;border-radius:50%;flex:none;align-self:center}
+.lvd.l1{background:var(--ink)} .lvd.l2{background:#7A8793} .lvd.l3{background:#C9CED3} .lvd.l0{background:transparent}
+.nl.active{background:var(--ink);color:#fff}
+.nl.active .lvd.l1{background:#fff}
+.nl.filtered,.nl.nomatch{display:none}
+.fab{position:fixed;bottom:16px;inset-inline-start:16px;z-index:25;font:inherit;font-weight:700;font-size:15px;padding:10px 16px;border-radius:999px;border:0;background:var(--ink);color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:28;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.on{opacity:1;pointer-events:auto}
+.stdnav{display:flex;justify-content:space-between;gap:8px;margin-top:14px;padding-top:10px;border-top:1px solid var(--line)}
+.stdnav a{font-size:13.5px;font-weight:700;color:var(--ink);text-decoration:none;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:var(--paper);max-width:48%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stdnav a:hover{background:var(--soft)}
+html{scroll-padding-top:16px}
+@media (max-width:700px){ .bar{position:static} }
+@media (min-width:701px){ html{scroll-padding-top:var(--barh,110px)} }
+
+@media (min-width:1024px){
+  .shell{grid-template-columns:300px minmax(0,1fr);gap:40px;padding:0 24px}
+  .side{position:sticky;top:0;height:100vh;width:auto;transform:none;box-shadow:none;z-index:6;border-inline-start:0;border-inline-end:1px solid var(--line);background:transparent;margin-inline-start:-24px}
+  .side-x,.fab,.scrim{display:none}
+  main{padding:0 0 100px}
+  h1{margin-top:34px}
+  .side-head{padding-top:26px}
 }
-@media (min-width:1500px){
-  main{zoom:1.3;max-width:1160px}
+@media (min-width:1440px){
+  .shell{grid-template-columns:330px minmax(0,1fr)}
+  main{max-width:1120px}
 }
-@media (min-width:2200px){
-  main{zoom:1.55}
-}
+
 @media print{
+  .side,.fab,.scrim,.stdnav{display:none!important}
+  .shell{display:block}
   body{background:#fff;font-size:11.5pt}
   main{max-width:none;padding:0}
   .bar,.noprint{display:none!important}
@@ -159,8 +196,91 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
   h2{break-before:page}
   h2.nobreak{break-before:auto}
 }
-</style></head><body><main>
-<h1>מפרט מרקרים לכרכים</h1>
+</style></head><body><div class="shell"><aside class="side" id="side" aria-label="ניווט במפרט">
+<div class="side-head">
+<b>ניווט</b>
+<button type="button" class="side-x" id="sideClose" aria-label="סגירת הניווט">✕</button>
+<input type="search" id="navq" placeholder="קפיצה לתקן: מספר או שם" aria-label="חיפוש תקן בניווט">
+</div>
+<nav class="side-nav" id="sideNav">
+<p class="grp">מבוא</p>
+<a class="nl intro" href="#top"><span class="t">כללי הסימון</span></a>
+<a class="nl intro" href="#markers"><span class="t">תשעת המרקרים</span></a>
+<a class="nl intro" href="#decide"><span class="t">איך מחליטים</span></a>
+<a class="nl intro" href="#example"><span class="t">דוגמה מסומנת</span></a>
+<a class="nl intro" href="#budget"><span class="t">כמה לסמן, ובאיזה סדר</span></a>
+<a class="nl intro" href="#detail"><span class="t">הפירוט לכל תקן · סינון</span></a>
+<p class="grp"><a href="#vol-a">כרך א' · תקני ביקורת</a></p>
+<a class="nl" href="#s-QC1" data-sid="s-QC1" title="תקן בקרת איכות (ישראל) 1 – בקרת איכות לפירמות המבצעות ביקורות וסקירות של דוחות כספיים, התקשרויות אחרות לבחינת מהימנות ושירותים קשורים"><span class="n">בקרת איכות 1</span><span class="t">תקן בקרת איכות (ישראל) 1 – בקרת איכות לפירמות המבצעות ביקורות וסקירות של דוחות כספיים, התקשרויות אחרות לבחינת מהימנות ושירותים קשורים</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-200" data-sid="s-200" title="מטרות ראשיות של רואה החשבון המבקר ועריכת ביקורת בהתאם לתקני ביקורת מקובלים בישראל"><span class="n">200</span><span class="t">מטרות ראשיות של רואה החשבון המבקר ועריכת ביקורת בהתאם לתקני ביקורת מקובלים בישראל</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-210" data-sid="s-210" title="מכתב התקשרות לביצוע ביקורת של דוחות כספיים"><span class="n">210</span><span class="t">מכתב התקשרות לביצוע ביקורת של דוחות כספיים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-220" data-sid="s-220" title="בקרת איכות על ביקורת דוחות כספיים"><span class="n">220</span><span class="t">בקרת איכות על ביקורת דוחות כספיים</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-230" data-sid="s-230" title="תיעוד ביקורת"><span class="n">230</span><span class="t">תיעוד ביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-240" data-sid="s-240" title="אחריות המבקר לשקול אפשרות קיומה של תרמית במסגרת ביקורת של דוחות כספיים"><span class="n">240</span><span class="t">אחריות המבקר לשקול אפשרות קיומה של תרמית במסגרת ביקורת של דוחות כספיים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-250" data-sid="s-250" title="התייחסות להוראות חוק ורגולציה במסגרת ביקורת של דוחות כספיים"><span class="n">250</span><span class="t">התייחסות להוראות חוק ורגולציה במסגרת ביקורת של דוחות כספיים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-260" data-sid="s-260" title="תקשורת עם המופקדים על ממשל תאגידי"><span class="n">260</span><span class="t">תקשורת עם המופקדים על ממשל תאגידי</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-265" data-sid="s-265" title="תקשור ליקויים בבקרה פנימית עם המופקדים על ממשל תאגידי ועם ההנהלה"><span class="n">265</span><span class="t">תקשור ליקויים בבקרה פנימית עם המופקדים על ממשל תאגידי ועם ההנהלה</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-300" data-sid="s-300" title="תכנון הביקורת"><span class="n">300</span><span class="t">תכנון הביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-315" data-sid="s-315" title="הבנה של הגוף המבוקר וסביבתו, והערכת הסיכונים המתייחסים להצגה מוטעית מהותית"><span class="n">315</span><span class="t">הבנה של הגוף המבוקר וסביבתו, והערכת הסיכונים המתייחסים להצגה מוטעית מהותית</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-320" data-sid="s-320" title="מהותיות בתכנון ובביצוע של ביקורת"><span class="n">320</span><span class="t">מהותיות בתכנון ובביצוע של ביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-330" data-sid="s-330" title="נוהלי המבקר במענה לסיכונים שהוערכו"><span class="n">330</span><span class="t">נוהלי המבקר במענה לסיכונים שהוערכו</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-402" data-sid="s-402" title="שיקולי ביקורת הקשורים לגופים מבוקרים המשתמשים בלשכות שירות"><span class="n">402</span><span class="t">שיקולי ביקורת הקשורים לגופים מבוקרים המשתמשים בלשכות שירות</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-450" data-sid="s-450" title="הערכת ההשפעה של הצגות מוטעות שזוהו במהלך הביקורת"><span class="n">450</span><span class="t">הערכת ההשפעה של הצגות מוטעות שזוהו במהלך הביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-500" data-sid="s-500" title="ראיות ביקורת"><span class="n">500</span><span class="t">ראיות ביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-501" data-sid="s-501" title="ראיות ביקורת – שיקולים נוספים לגבי פריטים מסוימים"><span class="n">501</span><span class="t">ראיות ביקורת – שיקולים נוספים לגבי פריטים מסוימים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-505" data-sid="s-505" title="אישורים חיצוניים"><span class="n">505</span><span class="t">אישורים חיצוניים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-510" data-sid="s-510" title="ביקורת יתרות פתיחה בגוף בו עורך המבקר ביקורת לראשונה"><span class="n">510</span><span class="t">ביקורת יתרות פתיחה בגוף בו עורך המבקר ביקורת לראשונה</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-520" data-sid="s-520" title="נהלים אנליטיים"><span class="n">520</span><span class="t">נהלים אנליטיים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-530" data-sid="s-530" title="דגימה בביקורת"><span class="n">530</span><span class="t">דגימה בביקורת</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-540" data-sid="s-540" title="ביקורת אומדנים בחשבונאות"><span class="n">540</span><span class="t">ביקורת אומדנים בחשבונאות</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-545" data-sid="s-545" title="ביקורת המדידה והגילוי של שווי הוגן"><span class="n">545</span><span class="t">ביקורת המדידה והגילוי של שווי הוגן</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-550" data-sid="s-550" title="נוהלי ביקורת לגבי עסקאות עם צדדים קשורים"><span class="n">550</span><span class="t">נוהלי ביקורת לגבי עסקאות עם צדדים קשורים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-560" data-sid="s-560" title="אירועים לאחר תאריך המאזן או לאחר תאריך דוח רואה החשבון המבקר"><span class="n">560</span><span class="t">אירועים לאחר תאריך המאזן או לאחר תאריך דוח רואה החשבון המבקר</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-570" data-sid="s-570" title="העסק החי"><span class="n">570</span><span class="t">העסק החי</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-580" data-sid="s-580" title="הצהרות בכתב לרואה החשבון המבקר"><span class="n">580</span><span class="t">הצהרות בכתב לרואה החשבון המבקר</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-600" data-sid="s-600" title="הסתמכות המבקר על מבקרים אחרים בדוחות כספיים מאוחדים"><span class="n">600</span><span class="t">הסתמכות המבקר על מבקרים אחרים בדוחות כספיים מאוחדים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-610" data-sid="s-610" title="התחשבות בעבודת הביקורת הפנימית"><span class="n">610</span><span class="t">התחשבות בעבודת הביקורת הפנימית</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-620" data-sid="s-620" title="שימוש בעבודת מומחה"><span class="n">620</span><span class="t">שימוש בעבודת מומחה</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-690" data-sid="s-690" title="עקרונות יסוד בעבודת ביקורת משותפת"><span class="n">690</span><span class="t">עקרונות יסוד בעבודת ביקורת משותפת</span><span class="lvd l0" aria-hidden="true"></span></a>
+<a class="nl" href="#s-700" data-sid="s-700" title="גיבוש חוות דעת ודיווח על דוחות כספיים (מתוקן 2024)"><span class="n">700</span><span class="t">גיבוש חוות דעת ודיווח על דוחות כספיים (מתוקן 2024)</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-701" data-sid="s-701" title="תקשור ענייני מפתח בביקורת בדוח רואה החשבון המבקר הבלתי תלוי"><span class="n">701</span><span class="t">תקשור ענייני מפתח בביקורת בדוח רואה החשבון המבקר הבלתי תלוי</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-705" data-sid="s-705" title="שינויים מהנוסח האחיד בחוות הדעת בדוח רואה החשבון המבקר הבלתי תלוי (מתוקן 2024)"><span class="n">705</span><span class="t">שינויים מהנוסח האחיד בחוות הדעת בדוח רואה החשבון המבקר הבלתי תלוי (מתוקן 2024)</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-706" data-sid="s-706" title="פסקת הדגש עניין ופסקת עניין אחר בדוח רואה החשבון המבקר הבלתי תלוי"><span class="n">706</span><span class="t">פסקת הדגש עניין ופסקת עניין אחר בדוח רואה החשבון המבקר הבלתי תלוי</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-710" data-sid="s-710" title="מידע השוואתי – מספרים מקבילים ודוחות כספיים השוואתיים (מתוקן 2024)"><span class="n">710</span><span class="t">מידע השוואתי – מספרים מקבילים ודוחות כספיים השוואתיים (מתוקן 2024)</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-720" data-sid="s-720" title="מידע אחר במסמכים המכילים דוחות כספיים מבוקרים"><span class="n">720</span><span class="t">מידע אחר במסמכים המכילים דוחות כספיים מבוקרים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-910" data-sid="s-910" title="ביקורת של בקרה פנימית על דיווח כספי המשולבת עם ביקורת של דוחות כספיים"><span class="n">910</span><span class="t">ביקורת של בקרה פנימית על דיווח כספי המשולבת עם ביקורת של דוחות כספיים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-911" data-sid="s-911" title="ביקורת של רכיבי בקרה פנימית על דיווח כספי"><span class="n">911</span><span class="t">ביקורת של רכיבי בקרה פנימית על דיווח כספי</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-920" data-sid="s-920" title="הסכמה של רואה החשבון המבקר להכללת דוחות שלו במסמך הצעה"><span class="n">920</span><span class="t">הסכמה של רואה החשבון המבקר להכללת דוחות שלו במסמך הצעה</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-2410" data-sid="s-2410" title="סקירה של מידע כספי לתקופות ביניים הנערכת על ידי רואה החשבון המבקר של הישות – גוף התקן"><span class="n">2410</span><span class="t">סקירה של מידע כספי לתקופות ביניים הנערכת על ידי רואה החשבון המבקר של הישות – גוף התקן</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-3000" data-sid="s-3000" title="תקן בחינת מהימנות (ישראל) 3000 – דוחות מיוחדים של רואי חשבון"><span class="n">3000</span><span class="t">תקן בחינת מהימנות (ישראל) 3000 – דוחות מיוחדים של רואי חשבון</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-4405" data-sid="s-4405" title="הנחיית שירותים קשורים (ישראל) 4405 – דוח רואה חשבון מבקר על דוח המוגש לרשות ניירות ערך על ידי חברה שהיא יועץ השקעות או מנהל תיקים"><span class="n">4405</span><span class="t">הנחיית שירותים קשורים (ישראל) 4405 – דוח רואה חשבון מבקר על דוח המוגש לרשות ניירות ערך על ידי חברה שהיא יועץ השקעות או מנהל תיקים</span><span class="lvd l0" aria-hidden="true"></span></a>
+<a class="nl" href="#s-4410" data-sid="s-4410" title="תקן שירותים קשורים (ישראל) 4410 – דוחות כספיים ודוחות חשבונאיים בלתי מבוקרים"><span class="n">4410</span><span class="t">תקן שירותים קשורים (ישראל) 4410 – דוחות כספיים ודוחות חשבונאיים בלתי מבוקרים</span><span class="lvd l0" aria-hidden="true"></span></a>
+<p class="grp"><a href="#vol-b">כרך ב' · התנהגות מקצועית, תקנות ומדריכים</a></p>
+<a class="nl" href="#s-b-rules60" data-sid="s-b-rules60" title="כללי ההתנהגות המקצועית עפ&quot;י תקנה 60"><span class="n">תקנה 60</span><span class="t">כללי ההתנהגות המקצועית עפ&quot;י תקנה 60</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-appoint" data-sid="s-b-appoint" title="תדריך לרואה חשבון בעת קבלת מינוי בו קדם לו רו&quot;ח אחר"><span class="n">תדריך</span><span class="t">תדריך לרואה חשבון בעת קבלת מינוי בו קדם לו רו&quot;ח אחר</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-docs-keep" data-sid="s-b-docs-keep" title="תדריך בדבר שמירת מסמכים"><span class="n">תדריך</span><span class="t">תדריך בדבר שמירת מסמכים</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-docs-hold" data-sid="s-b-docs-hold" title="תדריך בדבר מסמכים המצויים ברשותו של רואה חשבון והנוגעים לעבודת ביקורת"><span class="n">תדריך</span><span class="t">תדריך בדבר מסמכים המצויים ברשותו של רואה חשבון והנוגעים לעבודת ביקורת</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-tax" data-sid="s-b-tax" title="תדריך בדבר כללי התנהגות מקצועית לרואי חשבון בפרקטיקה במסים"><span class="n">תדריך</span><span class="t">תדריך בדבר כללי התנהגות מקצועית לרואי חשבון בפרקטיקה במסים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-av" data-sid="s-b-av" title="תקני ביקורת ודיווח"><span class="n">תקני אב</span><span class="t">תקני ביקורת ודיווח</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-checks" data-sid="s-b-checks" title="הבהרה בדבר טיפול בהמחאות ריקות, חתומות מראש – הניתנות לרואה החשבון על ידי מקבל שרות ממנו"><span class="n">הבהרה</span><span class="t">הבהרה בדבר טיפול בהמחאות ריקות, חתומות מראש – הניתנות לרואה החשבון על ידי מקבל שרות ממנו</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-guide320" data-sid="s-b-guide320" title="מדריך פרקטי ליישום תקן ביקורת (ישראל) 320 ותקן ביקורת (ישראל) 450"><span class="n">מדריך 320/450</span><span class="t">מדריך פרקטי ליישום תקן ביקורת (ישראל) 320 ותקן ביקורת (ישראל) 450</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-guide250" data-sid="s-b-guide250" title="מדריך פרקטי ליישום תקן ביקורת (ישראל) 250 – התייחסות להוראות חוק ורגולציה במסגרת ביקורת של דוחות כספיים"><span class="n">מדריך 250</span><span class="t">מדריך פרקטי ליישום תקן ביקורת (ישראל) 250 – התייחסות להוראות חוק ורגולציה במסגרת ביקורת של דוחות כספיים</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-special" data-sid="s-b-special" title="דוגמה למתכונת נוסח דוח מיוחד של רואי חשבון"><span class="n">דוח מיוחד</span><span class="t">דוגמה למתכונת נוסח דוח מיוחד של רואי חשבון</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-9c" data-sid="s-b-9c" title="דוח מיוחד של רואה החשבון המבקר על מידע כספי נפרד לפי תקנה 9ג&#x27; לתקנות ניירות ערך (דוחות תקופתיים ומיידיים), התש&quot;ל-1970"><span class="n">תקנה 9ג</span><span class="t">דוח מיוחד של רואה החשבון המבקר על מידע כספי נפרד לפי תקנה 9ג&#x27; לתקנות ניירות ערך (דוחות תקופתיים ומיידיים), התש&quot;ל-1970</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-38d" data-sid="s-b-38d" title="דוח מיוחד של רואה החשבון המבקר לסקירת המידע הכספי הביניים הנפרד לפי תקנה 38ד&#x27; לתקנות ניירות ערך (דוחות תקופתיים ומיידיים), התש&quot;ל-1970"><span class="n">תקנה 38ד</span><span class="t">דוח מיוחד של רואה החשבון המבקר לסקירת המידע הכספי הביניים הנפרד לפי תקנה 38ד&#x27; לתקנות ניירות ערך (דוחות תקופתיים ומיידיים), התש&quot;ל-1970</span><span class="lvd l2" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-conduct1955" data-sid="s-b-conduct1955" title="תקנות רואי חשבון (דרך פעולתו של רואה חשבון)"><span class="n">תקנות</span><span class="t">תקנות רואי חשבון (דרך פעולתו של רואה חשבון)</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-unbecoming1965" data-sid="s-b-unbecoming1965" title="תקנות רואי חשבון (התנהגות שאינה הולמת את כבוד המקצוע), התשכ&quot;ה–1965"><span class="n">תקנות 1965</span><span class="t">תקנות רואי חשבון (התנהגות שאינה הולמת את כבוד המקצוע), התשכ&quot;ה–1965</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-conflict2008" data-sid="s-b-conflict2008" title="תקנות רואי חשבון (ניגוד עניינים ופגיעה באי-תלות כתוצאה מעיסוק אחר), התשס&quot;ח–2008"><span class="n">תקנות 2008</span><span class="t">תקנות רואי חשבון (ניגוד עניינים ופגיעה באי-תלות כתוצאה מעיסוק אחר), התשס&quot;ח–2008</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-comptroller2018" data-sid="s-b-comptroller2018" title="הנחיות מבקר המדינה (קווים מנחים לרואה החשבון המבקר של איגוד), התשע&quot;ח–2018"><span class="n">מבקר המדינה</span><span class="t">הנחיות מבקר המדינה (קווים מנחים לרואה החשבון המבקר של איגוד), התשע&quot;ח–2018</span><span class="lvd l0" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-indep9b" data-sid="s-b-indep9b" title="אי תלות המבקר – החלטה לפי סעיף 9ב לחוק ניירות ערך, התשכ&quot;ח–1968"><span class="n">סעיף 9ב</span><span class="t">אי תלות המבקר – החלטה לפי סעיף 9ב לחוק ניירות ערך, התשכ&quot;ח–1968</span><span class="lvd l1" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-underwriter" data-sid="s-b-underwriter" title="נוסח מכתב רואי החשבון המבקרים לחתם במסגרת הנפקה לראשונה לציבור"><span class="n">מכתב לחתם</span><span class="t">נוסח מכתב רואי החשבון המבקרים לחתם במסגרת הנפקה לראשונה לציבור</span><span class="lvd l3" aria-hidden="true"></span></a>
+<a class="nl" href="#s-b-old700" data-sid="s-b-old700" title="תקני 700, 705 ו־710 בנוסחם הקודם"><span class="n">700 הקודם</span><span class="t">תקני 700, 705 ו־710 בנוסחם הקודם</span><span class="lvd l0" aria-hidden="true"></span></a>
+</nav>
+</aside>
+<button type="button" class="fab" id="fab" aria-controls="side" aria-expanded="false">☰ תקנים</button>
+<div class="scrim" id="scrim"></div>
+<main>
+<h1 id="top">מפרט מרקרים לכרכים</h1>
 <p class="lead">תשעה מרקרים, תשעה תפקידים. כל צבע עונה על שאלה אחת שהבחינה שואלת, וכל צורת סימון אומרת מה עושים עם הטקסט בזמן הבחינה. המפרט כולל 63 תקנים ופרסומים ו־2962 סימונים, כולם מלשון התקן עצמה.</p>
 
 <div class="box">
@@ -179,7 +299,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
 <div class="fB"><b>כחול · לקשר ולשקול</b>זוהר: גשר לתקן אחר<br>פסטל: שיקול דעת</div>
 </div>
 
-<h2 class="nobreak">תשעת המרקרים: מה מדגישים ומה מסמנים בקו</h2>
+<h2 id="markers" class="nobreak">תשעת המרקרים: מה מדגישים ומה מסמנים בקו</h2>
 <div class="grid9">
 <section class="mc mY">
 <header><span class="pen cY"></span><div><h3>צהוב זוהר · גבול <span class="only">הדגשה בלבד</span></h3><p class="q">מתי לא? באיזה תנאי? עד מתי? כמה?</p></div></header>
@@ -228,7 +348,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
 <div class="pg">גורמים מקלים חייבים <m class="hb">להישקל בזהירות ראויה</m>, לדוגמה <m class="ub">האם לא יפגעו תוכניות לצמצום בכח אדם בכושר ההישרדות של העסק המבוקר</m> <span class="src">תקן 570, סעיף 10</span></div></section>
 </div>
 
-<h2>איך מחליטים</h2>
+<h2 id="decide">איך מחליטים</h2>
 <div class="box">
 <h3>באיזה צבע</h3>
 <p>יורדים ברשימה ועוצרים ב"כן" הראשון. הסדר הוא שמונע חפיפה: דרישה שעוסקת בדוח המבקר היא כתום זוהר ולא ירוק, ודרישה לתעד היא כתום פסטל ולא ירוק.</p>
@@ -259,7 +379,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
 <p>משפט אחד מקבל קו תחתון בצבע אחד, צבע התפקיד שלו. הדגשה צהובה יכולה לשבת בתוכו על מילות התנאי.</p>
 </div>
 
-<h2>דוגמה מסומנת</h2>
+<h2 id="example">דוגמה מסומנת</h2>
 <div class="box">
 <p>תקן ביקורת 200, סעיפים 13, 23 ו־24. בסעיף 24 לבדו יש ארבעה תפקידים שונים, וכל אחד עונה על שאלה אחרת.</p>
 <div class="pg">
@@ -270,7 +390,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
 <!--PASTEL_EXAMPLE-->
 </div>
 
-<h2>כמה לסמן, ובאיזה סדר</h2>
+<h2 id="budget">כמה לסמן, ובאיזה סדר</h2>
 <div class="box">
 <table class="plain">
 <tr><th>רמה במיקוד המועצה</th><th>היקף</th><th>מה נכנס</th></tr>
@@ -3968,7 +4088,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
 <p class="skip"><b>לא מסמנים:</b> לא מסמנים כאן דבר, משום שהתקנים הנבחנים הם תקני סדרת 700 החדשים שבכרך א&#x27;; יש להיזהר שלא לפתוח בטעות את העמודים האלה בזמן הבחינה.</p>
 <p class="note"><b>שים לב:</b> מומלץ לכתוב בעיפרון בראש העמוד הראשון של כל אחד משלושת התקנים &quot;נוסח קודם – לא לבחינה&quot;, או להצמיד את העמודים האלה באטב.</p>
 </div></details>
-</main><script>(function(){
+</main></div><script>(function(){
   var st={vol:'',lvl:'',col:'',t1:false,x:false,q:''};
   var bar=document.getElementById('bar'); if(!bar) return;
   var cards=[].slice.call(document.querySelectorAll('details.std'));
@@ -3985,6 +4105,7 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
       });
       if((st.col||st.t1||st.x)&&!any) ok=false;
       d.classList.toggle('hide',!ok); if(ok) shown++;
+      var nl=document.querySelector('.side-nav a[data-sid="'+d.id+'"]'); if(nl) nl.classList.toggle('filtered',!ok);
     });
     if(cnt) cnt.textContent=shown+' תקנים · '+rows+' סימונים';
   }
@@ -4001,5 +4122,69 @@ tr.t2 td.ch::after{content:'אם יש זמן';display:block;font-size:11px;color
   var q=document.getElementById('q');
   if(q) q.addEventListener('input',function(){ st.q=q.value.trim(); apply(); });
   apply();
+})();
+</script><script>(function(){
+  var side=document.getElementById('side'), fab=document.getElementById('fab'), scrim=document.getElementById('scrim');
+  var mq=window.matchMedia('(min-width:1024px)');
+  function setOpen(o){ side.classList.toggle('open',o); scrim.classList.toggle('on',o); fab.setAttribute('aria-expanded',o); if(o){ var a=side.querySelector('.nl.active'); if(a) a.scrollIntoView({block:'center'}); } }
+  fab.addEventListener('click',function(){ setOpen(!side.classList.contains('open')); });
+  scrim.addEventListener('click',function(){ setOpen(false); });
+  document.getElementById('sideClose').addEventListener('click',function(){ setOpen(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') setOpen(false); });
+
+  var bar=document.getElementById('bar');
+  function barH(){ if(bar) document.documentElement.style.setProperty('--barh',(bar.offsetHeight+12)+'px'); }
+  barH(); window.addEventListener('resize',barH);
+
+  function jump(id){
+    var el=document.getElementById(id); if(!el) return;
+    if(el.tagName==='DETAILS'){ el.classList.remove('hide'); el.open=true; }
+    el.scrollIntoView({block:'start'});
+    history.replaceState(null,'','#'+id);
+    if(!mq.matches) setOpen(false);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('a[href^="#"]'); if(!a) return;
+    var id=a.getAttribute('href').slice(1); if(!id) return;
+    if(!document.getElementById(id)) return;
+    e.preventDefault(); jump(id);
+  });
+
+  var navq=document.getElementById('navq'), navLinks=[].slice.call(document.querySelectorAll('.side-nav .nl[data-sid]'));
+  navq.addEventListener('input',function(){
+    var v=navq.value.trim();
+    navLinks.forEach(function(a){ a.classList.toggle('nomatch', !!v && a.textContent.indexOf(v)<0); });
+  });
+  navq.addEventListener('keydown',function(e){
+    if(e.key!=='Enter') return;
+    var first=navLinks.filter(function(a){ return a.offsetParent!==null; })[0];
+    if(first) jump(first.dataset.sid);
+  });
+
+  var cards=[].slice.call(document.querySelectorAll('details.std'));
+  function label(d){ var s=d.querySelector('summary'); return s.querySelector('.no').textContent; }
+  cards.forEach(function(d,i){
+    var body=d.querySelector('.body'); if(!body) return;
+    var nav=document.createElement('div'); nav.className='stdnav';
+    var prev=cards[i-1], next=cards[i+1];
+    nav.innerHTML=(prev?'<a href="#'+prev.id+'">→ הקודם: '+label(prev)+'</a>':'<span></span>')+(next?'<a href="#'+next.id+'">הבא: '+label(next)+' ←</a>':'<span></span>');
+    body.appendChild(nav);
+  });
+
+  var targets=[].slice.call(document.querySelectorAll('#top,#markers,#decide,#example,#budget,#detail')).concat(cards);
+  var links={}; [].forEach.call(document.querySelectorAll('.side-nav .nl'),function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  var current=null;
+  function spy(){
+    var y=(parseInt(getComputedStyle(document.documentElement).scrollPaddingTop)||0)+40, best=null;
+    for(var i=0;i<targets.length;i++){ var t=targets[i]; if(t.classList.contains('hide')) continue; if(t.getBoundingClientRect().top<=y) best=t; else break; }
+    var id=best?best.id:'top';
+    if(id===current) return; current=id;
+    var old=side.querySelector('.nl.active'); if(old) old.classList.remove('active');
+    var a=links[id]; if(a){ a.classList.add('active'); if(mq.matches){ var nav=document.getElementById('sideNav'), r=a.getBoundingClientRect(), nr=nav.getBoundingClientRect(); if(r.top<nr.top+40||r.bottom>nr.bottom-40) nav.scrollTop+=r.top-nr.top-nr.height/3; } }
+  }
+  var tick=false; window.addEventListener('scroll',function(){ if(!tick){ tick=true; requestAnimationFrame(function(){ tick=false; spy(); }); } },{passive:true});
+  spy();
+  if(location.hash) setTimeout(function(){ jump(location.hash.slice(1)); },0);
+  window.addEventListener('hashchange',function(){ if(location.hash) jump(location.hash.slice(1)); });
 })();
 </script></body></html>
