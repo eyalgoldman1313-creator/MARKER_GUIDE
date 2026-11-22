@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap">
 <style>:root{
   color-scheme:light;
-  --paper:#F5F3EC; --ink:#17212B; --ink2:#55626E; --line:#DAD5C8; --card:#FFFFFF; --soft:#EFECE3;
+  --paper:#FCFBF8; --ink:#111820; --ink2:#434E59; --line:#D9D5CA; --card:#FFFFFF; --soft:#F3F1EA;
   --Y:#FFF03A; --G:#86EE3C; --P:#FF6DB4; --O:#FFA040; --B:#58B2F8;
   --g:#CBEEBB; --p:#FACDDD; --o:#FCDDB0; --b:#C6E2F7;
   --uG:#3DB800; --uP:#EE2E8C; --uO:#F27A00; --uB:#1C84E0;
@@ -228,6 +228,45 @@ html{scroll-padding-top:16px}
   .rail .tg.sm{min-width:32px;height:17px}
   .rail .lvkey{font-size:14.5px;gap:7px}
   .rail .lvd{width:10px;height:10px}
+}
+
+/* readability: larger spec text, black main sentences */
+td.tx{font-size:16.5px;color:#000}
+tr.t2 td.tx{opacity:1}
+tr.t2 td.ch{opacity:.85}
+.prof{font-size:15.5px;color:#000}
+.struct{font-size:14.5px;color:var(--ink)}
+.hot{font-size:14.5px;color:var(--ink)}
+.why{font-size:13.5px}
+.skip,.note{font-size:15px;color:#000}
+.tt{color:#000}
+.pg{color:#000}
+@media (min-width:1024px){
+  td.tx{font-size:18px;line-height:1.85}
+  .why{font-size:15px;line-height:1.45}
+  .prof{font-size:17px;line-height:1.65}
+  .struct{font-size:15.5px;line-height:1.7}
+  .hot{font-size:15.5px;line-height:2.2}
+  .skip,.note{font-size:16px}
+  .chip{font-size:14px} .chip i{width:26px;height:15px}
+  td.ch{width:178px} td.sec{width:98px}
+  td.sec small{font-size:12.5px}
+  .sn{font-size:15.5px;height:27px;min-width:34px;border-radius:14px}
+  .ex,.lg{font-size:13px;padding:1px 6px}
+  tr.t2 td.ch::after{font-size:12.5px}
+  table.mk td{padding:8px 8px}
+  .tt{font-size:17.5px}
+  .lv{font-size:13px}
+  .dot{min-width:25px;height:25px;border-radius:13px;font-size:13px}
+  .body{padding:14px 16px 18px}
+  .mc ul,.mc .q{font-size:15.5px}
+  .pg{font-size:16.5px}
+  table.plain{font-size:15.5px}
+  .fam div{font-size:14.5px} .fam b{font-size:16px}
+  .lead{font-size:17px}
+  .bar button{font-size:14.5px}
+  .count{font-size:14px}
+  .stdnav a{font-size:14.5px}
 }
 
 @media print{
