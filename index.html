@@ -204,7 +204,21 @@ html{scroll-padding-top:16px}
 @media (min-width:1024px){ .shell{grid-template-columns:340px minmax(0,1fr)} }
 @media (min-width:1400px){ .shell{grid-template-columns:390px minmax(0,1fr);max-width:1640px} }
 
+/* bookmark legend as a fixed left rail on wide desktops */
+.rail{display:none}
+@media (min-width:1500px){
+  .shell{grid-template-columns:390px minmax(0,1fr) 250px;max-width:1920px;gap:32px}
+  .rail{display:block;position:sticky;top:16px;margin:16px 0;padding:14px 16px;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.06);font-size:14px;color:var(--ink);max-height:calc(100vh - 32px);overflow-y:auto}
+  .rail .rail-t{display:block;font-size:15.5px;font-weight:900;margin-bottom:4px}
+  .rail h5{font-size:13px;margin:12px 0 6px;color:var(--ink2)}
+  .rail ul{gap:7px}
+  .rail .tg.sm{min-width:26px;height:14px}
+  .rail .lvkey{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font-size:13px;color:var(--ink2)}
+  .side .legend{display:none}
+}
+
 @media print{
+  .rail{display:none!important}
   .side,.fab,.scrim,.stdnav{display:none!important}
   .shell{display:block}
   body{background:#fff;font-size:11.5pt}
@@ -4110,7 +4124,11 @@ html{scroll-padding-top:16px}
 <p class="skip"><b>לא מסמנים:</b> לא מסמנים כאן דבר, משום שהתקנים הנבחנים הם תקני סדרת 700 החדשים שבכרך א&#x27;; יש להיזהר שלא לפתוח בטעות את העמודים האלה בזמן הבחינה.</p>
 <p class="note"><b>שים לב:</b> מומלץ לכתוב בעיפרון בראש העמוד הראשון של כל אחד משלושת התקנים &quot;נוסח קודם – לא לבחינה&quot;, או להצמיד את העמודים האלה באטב.</p>
 </div></details>
-</main></div><script>(function(){
+</main><aside class="legend rail" aria-label="מקרא צבעי הסימניות"><b class="rail-t">מקרא צבעי הסימניות</b>
+<h5>כרך א'</h5><ul><li><span class="tg sm" style="--c:#F8E43C;--tc:#16202A"></span>עקרונות וחובות כלליים</li><li><span class="tg sm" style="--c:#EE2F86;--tc:#16202A"></span>הערכת סיכונים ומענה לסיכונים</li><li><span class="tg sm" style="--c:#2D5CE3;--tc:#FFFFFF"></span>ראיות ביקורת</li><li><span class="tg sm" style="--c:#FF8B3E;--tc:#16202A"></span>סוגיות בראיות ביקורת</li><li><span class="tg sm" style="--c:#FF85AA;--tc:#16202A"></span>הסתמכות על אחרים / מומחה</li><li><span class="tg sm" style="--c:#61D63D;--tc:#16202A"></span>מסקנות ודוח המבקר</li><li><span class="tg sm" style="--c:#37B8E4;--tc:#16202A"></span>SOX · ISOX · תשקיף</li><li><span class="tg sm" style="--c:#B46AE2;--tc:#16202A"></span>סקירה, דוח מיוחד, בלתי מבוקרים</li></ul>
+<h5>כרך ב'</h5><ul><li><span class="tg sm" style="--c:#F8E43C;--tc:#16202A"></span>כללי התנהגות ותדריכים</li><li><span class="tg sm" style="--c:#2D5CE3;--tc:#FFFFFF"></span>מדריכים פרקטיים</li><li><span class="tg sm" style="--c:#B46AE2;--tc:#16202A"></span>דוחות מיוחדים</li><li><span class="tg sm" style="--c:#FF8B3E;--tc:#16202A"></span>תקנות מכוח חוק רו"ח</li><li><span class="tg sm" style="--c:#EE2F86;--tc:#16202A"></span>אי תלות, רשות ני"ע</li><li><span class="tg sm" style="--c:#37B8E4;--tc:#16202A"></span>מכתב לחתם</li><li><span class="tg sm" style="--c:#61D63D;--tc:#16202A"></span>700 הישן</li></ul>
+<p class="lvkey"><span class="lvd l1"></span>רמה 1 <span class="lvd l2"></span>רמה 2 <span class="lvd l3"></span>רמה 3</p>
+</aside></div><script>(function(){
   var st={vol:'',lvl:'',col:'',t1:false,x:false,q:''};
   var bar=document.getElementById('bar'); if(!bar) return;
   var cards=[].slice.call(document.querySelectorAll('details.std'));
