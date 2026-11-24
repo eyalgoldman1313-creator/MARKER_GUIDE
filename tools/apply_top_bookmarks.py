@@ -42,7 +42,7 @@ def strip_html(std):
         out.append('<%s class="tb%s"%s style="--c:%s;--tc:%s" title="%s"><span class="tg">%s</span>'
                    '<span class="tb-x"><span class="tb-t">%s</span><span class="tb-m">%s</span></span></%s>'
                    % (tag, ' side' if b['side'] else '', attrs, b['hex'], text_on(b['hex']), esc(title),
-                      esc(b['write']) or '&nbsp;', esc(b['label']), ' · '.join(meta), tag))
+                      '–'.join('<bdi>%s</bdi>' % esc(t) for t in b['write'].split('–')) if b['write'] else '&nbsp;', esc(b['label']), ' · '.join(meta), tag))
     out.append('</div></div>\n')
     return ''.join(out)
 
@@ -59,7 +59,7 @@ CSS = r'''
 a.tb:hover{border-color:var(--ink2)}
 .tb.side{background:transparent;border-style:dashed}
 .tb.side .tg{background:transparent;color:var(--ink2);box-shadow:inset 0 0 0 1.5px var(--c)}
-.tb .tg{min-width:54px;height:28px;font-size:14px;padding:0 6px;white-space:nowrap}
+.tb .tg{display:inline-flex;align-items:center;justify-content:center;min-width:54px;height:28px;font-size:14px;padding:0 7px;white-space:nowrap}
 .tb-x{display:flex;flex-direction:column;min-width:0;line-height:1.3}
 .tb-t{font-size:14px;font-weight:700;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
 .tb-m{font-size:12.5px;color:var(--ink2);white-space:nowrap}
