@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>רשימת הדבקה – סימניות</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;900&display=swap">
+<style>
+:root{--paper:#FCFBF8;--ink:#111820;--ink2:#434E59;--line:#D9D5CA;--card:#FFFFFF;--soft:#F3F1EA;--ok:#2E9E1F;--hh:150px}
+*{box-sizing:border-box}
+html{scroll-padding-top:calc(var(--hh) + 8px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:#000;font-family:'Heebo','Segoe UI','Arial Hebrew',Arial,sans-serif;font-size:15.5px;line-height:1.45}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+header.top{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line);padding:8px 0 9px;box-shadow:0 2px 8px rgba(17,24,32,.06)}
+.h1row{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px}
+h1{margin:0;font-size:19px;font-weight:900;flex:none}
+.back{font-size:14px;font-weight:700;color:var(--ink2);text-decoration:none;padding:3px 0}
+.back:hover{text-decoration:underline;color:#000}
+.cnt{display:flex;align-items:center;gap:10px;margin-inline-start:auto;min-width:0}
+.cnt b{font-size:15px;font-weight:900;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pb{width:130px;height:7px;border-radius:99px;background:var(--soft);box-shadow:inset 0 0 0 1px var(--line);overflow:hidden;flex:none}
+.pb i{display:block;height:100%;width:0;background:var(--ok);border-radius:99px;transition:width .2s}
+.rst{font:inherit;font-size:12.5px;font-weight:700;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink2);cursor:pointer}
+.rst:hover{border-color:var(--ink2);color:#000}
+.flt{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px;margin-top:8px}
+.tgl{font:inherit;font-size:14px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tgl:hover{border-color:var(--ink2)}
+.tgl[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.cbs{display:flex;gap:6px;align-items:center;margin:0 6px}
+.cbtn{width:28px;height:28px;padding:0;border-radius:50%;border:2px solid rgba(0,0,0,.2);background:var(--c);cursor:pointer;flex:none}
+.cbtn[aria-pressed=true]{border-color:var(--ink);box-shadow:0 0 0 2px #fff inset}
+.sep{width:1px;height:20px;background:var(--line);margin:0 2px}
+.shown{font-size:13.5px;color:var(--ink2);margin-inline-start:auto;white-space:nowrap}
+main{padding-bottom:60px}
+details.key{margin:14px 0 4px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px}
+details.key summary{cursor:pointer;font-weight:900;font-size:16px;padding:10px 0}
+.keyl{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px 18px;padding:2px 0 8px;font-size:14.5px}
+.keyl span{display:flex;align-items:center;gap:8px}
+.keyl i{display:inline-block;width:28px;height:14px;border-radius:2px 5px 5px 2px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);flex:none}
+.keyn{margin:0 0 12px;color:var(--ink2);font-size:14.5px}
+h2{font-size:21px;font-weight:900;margin:26px 0 6px}
+.std{background:var(--card);border:1px solid var(--line);border-radius:14px;margin:12px 0;overflow:hidden;scroll-margin-top:calc(var(--hh) + 8px)}
+.std.all{opacity:.72}
+.sh{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--soft)}
+.tg{display:inline-grid;place-items:center;min-width:52px;height:30px;padding:0 8px;border-radius:2px 7px 7px 2px;background:var(--c);color:var(--tc);font-weight:900;font-size:15px;font-variant-numeric:tabular-nums;line-height:1;box-shadow:inset 0 0 0 1px rgba(0,0,0,.16);flex:none}
+.sh .tg{font-size:17px}
+.sh h3{margin:0;font-size:15.5px;font-weight:700;flex:1 1 180px;min-width:0}
+.sc{font-weight:900;font-size:15px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.std.all .sc{color:var(--ok);font-size:20px;line-height:1}
+.gl{font-size:13px;color:var(--ink2);text-decoration:none;white-space:nowrap}
+.gl:hover{text-decoration:underline;color:#000}
+.row{display:grid;grid-template-columns:22px minmax(0,1fr);gap:2px 12px;align-items:center;padding:9px 14px;border-top:1px solid var(--line);cursor:pointer;background:var(--card)}
+.sh+.row{border-top:0}
+.row:hover{background:#FAF9F4}
+.row input{width:22px;height:22px;margin:0;accent-color:#2E9E1F;cursor:pointer;grid-row:1/3;align-self:center}
+.row .tg{justify-self:start;max-width:100%;min-width:64px;white-space:nowrap}
+.top1{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;min-width:0}
+.lb{font-size:15.5px;color:#000;min-width:0}
+.mt{font-size:13.5px;color:var(--ink2)}
+.mt .n{font-weight:700}
+.row.note .top1{font-size:15.5px}
+.row.note b{font-weight:900;color:#000}
+.pen{color:var(--ink2)}
+.row.done{background:#F4FAEF}
+.row.done .top1,.row.done .mt{opacity:.6}
+.sideonly{margin:10px 2px 0;font-size:14px;color:var(--ink2)}
+.sideonly b{color:#000;font-weight:900}
+.hide{display:none!important}
+.empty{margin:30px 0;text-align:center;color:var(--ink2)}
+@media (max-width:640px){
+  .row .top1{grid-column:2;flex-wrap:nowrap;align-items:flex-start}
+  .row.note .top1{flex-wrap:wrap}
+  .row .lb{flex:1 1 0}
+  .row .mt{grid-column:2}
+}
+@media (min-width:641px){
+  .row{grid-template-columns:22px minmax(0,1fr) auto}
+  .row input{grid-row:auto}
+  .top1{flex-wrap:nowrap}
+  .row .tg{width:128px;flex:none}
+  .lb{flex:1}
+  .mt{white-space:nowrap;text-align:end}
+  .row.note .top1{flex-wrap:wrap}
+}
+@media (max-width:640px){
+  body{font-size:15.5px}
+  .wrap{padding:0 12px}
+  header.top{padding:6px 0 7px}
+  h1{font-size:16.5px}
+  .back{font-size:13px}
+  .cnt{width:100%;margin:0}
+  .pb{flex:1;width:auto}
+  .cnt b{font-size:14px}
+  .flt{margin-top:6px;gap:5px 6px}
+  .tgl{font-size:13px;padding:3px 9px}
+  .cbs{gap:4px;margin:0 2px}
+  .cbtn{width:24px;height:24px}
+  .shown{margin:0;width:100%;font-size:12.5px;white-space:normal}
+  .sh{padding:9px 12px}
+  .sh h3{font-size:15.5px}
+  .row{padding:9px 12px}
+  .lb{font-size:15.5px}
+  .mt{font-size:13.5px}
+  h2{font-size:18px}
+  .keyl{grid-template-columns:1fr}
+}
+@media (min-width:1024px){
+  body{font-size:17px}
+  h1{font-size:22px}
+  .sh h3{font-size:17.5px;font-weight:700}
+  .sh h3{font-weight:700}
+  .sh .tg{font-size:17px}
+  .tg{font-size:16px}
+  .lb,.row.note .top1{font-size:17px}
+  .mt,.sc,.gl{font-size:15px}
+  .row{padding:10px 16px}
+  .sh{padding:11px 16px}
+}
+/* the tag keeps its natural size inside a fixed column, so the descriptions line up */
+@media (min-width:641px){
+  .row .top1{display:grid;grid-template-columns:150px minmax(0,1fr);gap:14px}
+  .row .tg{width:auto;justify-self:start}
+  .row.note .top1{display:flex}
+  .mt{min-width:230px}
+}
+.mt .n{font-weight:900;color:#000}
+@media (min-width:1500px){
+  .wrap{max-width:1420px;padding:0 24px}
+  .lb,.row.note .top1{font-size:18.5px}
+  .mt,.sc,.gl{font-size:16.5px}
+  .tg{font-size:17px;height:32px}
+  .sh h3{font-size:19px}
+  .sh .tg{font-size:18.5px;height:34px;min-width:60px}
+  .row{padding:12px 20px}
+  .sh{padding:13px 20px}
+  .row .top1{grid-template-columns:175px minmax(0,1fr);gap:18px}
+  .row input{width:24px;height:24px}
+  .mt{min-width:270px}
+  h1{font-size:25px}
+}
+/* phone: the header scrolls away; only the progress counter stays, as a bar at the bottom */
+@media (max-width:640px){
+  header.top{position:static;box-shadow:none}
+  .cnt{position:fixed;bottom:10px;left:10px;right:10px;width:auto;z-index:20;margin:0;padding:8px 12px;background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 4px 16px rgba(17,24,32,.18)}
+  body{padding-bottom:70px}
+  html{scroll-padding-top:12px}
+  .std{scroll-margin-top:12px}
+}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+<div class="h1row"><h1>רשימת הדבקה לסימניות</h1><a class="back" href="./">&rarr; למפרט המרקרים</a>
+<div class="cnt"><b id="cnt">הודבקו 0 מתוך 139</b><div class="pb" id="pb" role="progressbar" aria-valuemin="0" aria-valuemax="139" aria-valuenow="0" aria-label="התקדמות"><i></i></div><button type="button" class="rst" id="reset">איפוס</button></div></div>
+<div class="flt"><button type="button" class="tgl" data-f="vol" data-v="א" aria-pressed="false">כרך א'</button><button type="button" class="tgl" data-f="vol" data-v="ב" aria-pressed="false">כרך ב'</button><span class="sep"></span>
+<span class="cbs"><button type="button" class="cbtn" data-f="color" data-v="Y" style="--c:#F8E43C" aria-pressed="false" title="צהוב · גבול: חריג, תנאי, איסור, מועד, סף" aria-label="צהוב · גבול: חריג, תנאי, איסור, מועד, סף"></button><button type="button" class="cbtn" data-f="color" data-v="G" style="--c:#61D63D" aria-pressed="false" title="ירוק · מה המבקר חייב לעשות" aria-label="ירוק · מה המבקר חייב לעשות"></button><button type="button" class="cbtn" data-f="color" data-v="P" style="--c:#EE2F86" aria-pressed="false" title="ורוד זוהר · מושג או הגדרה" aria-label="ורוד זוהר · מושג או הגדרה"></button><button type="button" class="cbtn" data-f="color" data-v="p" style="--c:#FF85AA" aria-pressed="false" title="ורוד בהיר · מצב אצל המבוקר" aria-label="ורוד בהיר · מצב אצל המבוקר"></button><button type="button" class="cbtn" data-f="color" data-v="O" style="--c:#FF8B3E" aria-pressed="false" title="כתום · דיווח, תקשור ותיעוד" aria-label="כתום · דיווח, תקשור ותיעוד"></button><button type="button" class="cbtn" data-f="color" data-v="b" style="--c:#37B8E4" aria-pressed="false" title="תכלת · שיקול דעת" aria-label="תכלת · שיקול דעת"></button><button type="button" class="cbtn" data-f="color" data-v="B" style="--c:#2D5CE3" aria-pressed="false" title="כחול · קישור לתקן או לחוק אחר" aria-label="כחול · קישור לתקן או לחוק אחר"></button><button type="button" class="cbtn" data-f="color" data-v="V" style="--c:#B46AE2" aria-pressed="false" title="סגול · נספחים ונוסחי דוח" aria-label="סגול · נספחים ונוסחי דוח"></button></span><span class="sep"></span><button type="button" class="tgl" id="rest" aria-pressed="false">רק מה שנשאר</button>
+<span class="shown" id="shown" aria-live="polite"></span></div>
+</div></header>
+<main class="wrap">
+<details class="key"><summary>מקרא הצבעים</summary><div class="keyl"><span style="--c:#F8E43C"><i></i>צהוב · גבול: חריג, תנאי, איסור, מועד, סף</span><span style="--c:#61D63D"><i></i>ירוק · מה המבקר חייב לעשות</span><span style="--c:#EE2F86"><i></i>ורוד זוהר · מושג או הגדרה</span><span style="--c:#FF85AA"><i></i>ורוד בהיר · מצב אצל המבוקר</span><span style="--c:#FF8B3E"><i></i>כתום · דיווח, תקשור ותיעוד</span><span style="--c:#37B8E4"><i></i>תכלת · שיקול דעת</span><span style="--c:#2D5CE3"><i></i>כחול · קישור לתקן או לחוק אחר</span><span style="--c:#B46AE2"><i></i>סגול · נספחים ונוסחי דוח</span></div>
+<p class="keyn">כותבים רק את מספר הסעיף, או נ ומספר הנספח · המסלול (1–8) הוא המיקום בקצה העליון של הדף, מימין לשמאל</p></details>
+<div class="vol" data-vol="א"><h2>כרך א&#x27; · תקני ביקורת</h2>
+<section class="std" id="s-QC1" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">1</span><h3 title="תקן בקרת איכות (ישראל) 1 – בקרת איכות לפירמות המבצעות ביקורות וסקירות של דוחות כספיים, התקשרויות אחרות לבחינת מהימנות ושירותים קשורים">בקרת איכות לפירמות (תקן בקרת איכות 1)</h3><span class="sc"></span><a class="gl" href="./#s-QC1">לתקן במפרט</a></div>
+<label class="row" data-id="s-QC1|12|31" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>12</bdi></span></span><span class="lb">רכיבי מערכת בקרת האיכות</span></span><span class="mt">עמ' <span class="n">31</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-200" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">200</span><h3 title="מטרות ראשיות של רואה החשבון המבקר ועריכת ביקורת בהתאם לתקני ביקורת מקובלים בישראל">מטרות ראשיות של רואה החשבון המבקר ועריכת ביקורת</h3><span class="sc"></span><a class="gl" href="./#s-200">לתקן במפרט</a></div>
+<label class="row" data-id="s-200|11–13(ה)|43" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>11</bdi>–<bdi>13(ה)</bdi></span></span><span class="lb">המטרות הראשיות של המבקר · הגדרות – ראו פירוט האותיות · הגדרת הצגה מוטעית</span></span><span class="mt">עמ' <span class="n">43</span> · מסלול <span class="n">1</span> · ×15</span></label>
+<label class="row" data-id="s-200|13(יג)–15|46" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>13(יג)</bdi>–<bdi>15</bdi></span></span><span class="lb">סיכון מובנה וסיכון בקרה · הגדרת ספקנות מקצועית · חובת הספקנות המקצועית</span></span><span class="mt">עמ' <span class="n">46</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-200|א35–א36|57" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>א35</bdi>–<bdi>א36</bdi></span></span><span class="lb">סיכון ברמת הדוחות בכללותם · סיכון ברמת המצג</span></span><span class="mt">עמ' <span class="n">57</span> · מסלול <span class="n">3</span> · ×4</span></label>
+</section>
+<section class="std" id="s-210" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">210</span><h3 title="מכתב התקשרות לביצוע ביקורת של דוחות כספיים">מכתב התקשרות לביצוע ביקורת של דוחות כספיים</h3><span class="sc"></span><a class="gl" href="./#s-210">לתקן במפרט</a></div>
+<label class="row" data-id="s-210|3–5|68" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>3</bdi>–<bdi>5</bdi></span></span><span class="lb">מה מותר ואסור לכלול במכתב · מכתב חדש לכל שנה · למי מופנה ומי חותם</span></span><span class="mt">עמ' <span class="n">68</span> · מסלול <span class="n">1</span> · ×4</span></label>
+<label class="row" data-id="s-210|11|74" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>11</bdi></span></span><span class="lb">המבוקר לא אישר בכתב</span></span><span class="mt">עמ' <span class="n">74</span> · מסלול <span class="n">2</span> · ×4</span></label>
+<label class="row" data-id="s-210|נ|76" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">76</span> · מסלול <span class="n">3</span></span></label>
+</section>
+<section class="std" id="s-220" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">220</span><h3 title="בקרת איכות על ביקורת דוחות כספיים">בקרת איכות על ביקורת דוחות כספיים</h3><span class="sc"></span><a class="gl" href="./#s-220">לתקן במפרט</a></div>
+<label class="row note" data-id="s-220|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>תקן בקרת איכות 1</b></span></label>
+</section>
+<section class="std" id="s-230" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">230</span><h3 title="תיעוד ביקורת">תיעוד ביקורת</h3><span class="sc"></span><a class="gl" href="./#s-230">לתקן במפרט</a></div>
+<label class="row" data-id="s-230|8–17|106" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>8</bdi>–<bdi>17</bdi></span></span><span class="lb">צורה, תוכן והיקף, מבקר בעל ניסיון · מי ביצע, מי סקר ומתי · נהלים חדשים לאחר תאריך הדוח · השלמת התיק בזמן סביר · שינוי לאחר השלמת התיק · הבעלות על תיעוד הביקורת</span></span><span class="mt">עמ' <span class="n">106</span> · מסלול <span class="n">1</span> · ×7</span></label>
+<label class="row" data-id="s-230|א21–א25|113" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>א21</bdi>–<bdi>א25</bdi></span></span><span class="lb">60 יום להרכבת התיק · שינויים מנהליים מותרים · שמירה שבע שנים · אין מסירת ניירות עבודה למבוקר</span></span><span class="mt">עמ' <span class="n">113</span> · מסלול <span class="n">2</span> · ×6</span></label>
+</section>
+<section class="std" id="s-240" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">240</span><h3 title="אחריות המבקר לשקול אפשרות קיומה של תרמית במסגרת ביקורת של דוחות כספיים">אחריות המבקר לשקול קיומה של תרמית</h3><span class="sc"></span><a class="gl" href="./#s-240">לתקן במפרט</a></div>
+<label class="row" data-id="s-240|24–32|124" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>24</bdi>–<bdi>32</bdi></span></span><span class="lb">ספקנות למרות ניסיון העבר · דיוני צוות ההתקשרות</span></span><span class="mt">עמ' <span class="n">124</span> · מסלול <span class="n">1</span> · ×4</span></label>
+<label class="row" data-id="s-240|76|136" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>76</bdi></span></span><span class="lb">שלושה נהלים להתעלמות מבקרות</span></span><span class="mt">עמ' <span class="n">136</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-240|82|138" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>82</bdi></span></span><span class="lb">צידוק עסקי לעסקאות חריגות</span></span><span class="mt">עמ' <span class="n">138</span> · מסלול <span class="n">3</span> · ×4</span></label>
+<label class="row" data-id="s-240|93–95|141" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>93</bdi>–<bdi>95</bdi></span></span><span class="lb">דיווח לרמה המתאימה בהנהלה · דיווח למופקדים על ממשל תאגידי</span></span><span class="mt">עמ' <span class="n">141</span> · מסלול <span class="n">4</span> · ×5</span></label>
+<label class="row" data-id="s-240|103–104|143" data-color="b"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#37B8E4;--tc:#16202A" title="סימנייה תכלת · שיקול דעת"><span><bdi>103</bdi>–<bdi>104</bdi></span></span><span class="lb">שקילת הפסקת ההתקשרות · דוגמאות לנסיבות חריגות</span></span><span class="mt">עמ' <span class="n">143</span> · מסלול <span class="n">5</span> · ×6</span></label>
+<label class="row" data-id="s-240|נ|146" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">146</span> · מסלול <span class="n">6</span></span></label>
+</section>
+<section class="std" id="s-260" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">260</span><h3 title="תקשורת עם המופקדים על ממשל תאגידי">תקשורת עם המופקדים על ממשל תאגידי</h3><span class="sc"></span><a class="gl" href="./#s-260">לתקן במפרט</a></div>
+<label class="row" data-id="s-260|15–16|182" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>15</bdi>–<bdi>16</bdi></span></span><span class="lb">סקירת היקף, עיתוי וסיכונים משמעותיים · ממצאים משמעותיים וחילוקי דעות</span></span><span class="mt">עמ' <span class="n">182</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-260|נ|203" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">203</span> · מסלול <span class="n">2</span></span></label>
+</section>
+<section class="std" id="s-265" data-vol="א"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">265</span><h3 title="תקשור ליקויים בבקרה פנימית עם המופקדים על ממשל תאגידי ועם ההנהלה">תקשור ליקויים בבקרה פנימית</h3><span class="sc"></span><a class="gl" href="./#s-265">לתקן במפרט</a></div>
+<label class="row note" data-id="s-265|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>260</b></span></label>
+<label class="row" data-id="s-265|נ|224" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">224</span> · מסלול <span class="n">1</span></span></label>
+<label class="row" data-id="s-265|נ2|226" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ2</bdi></span></span><span class="lb">נספח 2 – נוסח הדוח</span></span><span class="mt">עמ' <span class="n">226</span> · מסלול <span class="n">2</span></span></label>
+</section>
+<section class="std" id="s-300" data-vol="א"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">300</span><h3 title="תכנון הביקורת">תכנון הביקורת</h3><span class="sc"></span><a class="gl" href="./#s-300">לתקן במפרט</a></div>
+<label class="row" data-id="s-300|10|230" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>10</bdi></span></span><span class="lb">נושאי התכנון הכולל, עם דוגמאות</span></span><span class="mt">עמ' <span class="n">230</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-315" data-vol="א"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">315</span><h3 title="הבנה של הגוף המבוקר וסביבתו, והערכת הסיכונים המתייחסים להצגה מוטעית מהותית">הבנת הגוף המבוקר והערכת סיכונים</h3><span class="sc"></span><a class="gl" href="./#s-315">לתקן במפרט</a></div>
+<label class="row" data-id="s-315|42|243" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>42</bdi></span></span><span class="lb">הגדרת בקרה פנימית</span></span><span class="mt">עמ' <span class="n">243</span> · מסלול <span class="n">1</span> · ×4</span></label>
+<label class="row" data-id="s-315|54–60|246" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>54</bdi>–<bdi>60</bdi></span></span><span class="lb">הערכת תכנון ויישום בקרות · סיכוני טכנולוגיית המידע</span></span><span class="mt">עמ' <span class="n">246</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-315|69|249" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>69</bdi></span></span><span class="lb">מרכיבי סביבת הבקרה (68–70)</span></span><span class="mt">עמ' <span class="n">249</span> · מסלול <span class="n">3</span> · ×3</span></label>
+<label class="row" data-id="s-315|76–81|251" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>76</bdi>–<bdi>81</bdi></span></span><span class="lb">תהליך הערכת הסיכונים בגוף · כיצד ההנהלה מזהה סיכונים · הבנת מערכת המידע</span></span><span class="mt">עמ' <span class="n">251</span> · מסלול <span class="n">4</span> · ×3</span></label>
+<label class="row" data-id="s-315|94–100|254" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>94</bdi>–<bdi>100</bdi></span></span><span class="lb">בקרות כלליות – הגדרה ותחומים · סיכונים ברמת הדוחות והמצגים</span></span><span class="mt">עמ' <span class="n">254</span> · מסלול <span class="n">5</span> · ×8</span></label>
+<label class="row" data-id="s-315|101–109|256" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>101</bdi>–<bdi>109</bdi></span></span><span class="lb">שימוש במידע שנצבר כראיות · קביעת סיכונים משמעותיים · שיקולים לקביעת סיכון משמעותי</span></span><span class="mt">עמ' <span class="n">256</span> · מסלול <span class="n">6</span> · ×8</span></label>
+<label class="row" data-id="s-315|113|258" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>113</bdi></span></span><span class="lb">בקרות על סיכון משמעותי</span></span><span class="mt">עמ' <span class="n">258</span> · מסלול <span class="n">7</span> · ×5</span></label>
+<label class="row" data-id="s-315|נ|262" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">262</span> · מסלול <span class="n">8</span></span></label>
+<label class="row" data-id="s-315|נ2|268" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ2</bdi></span></span><span class="lb">סעיפים 6, 9 ו-21 בנספח</span></span><span class="mt">עמ' <span class="n">268</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-320" data-vol="א"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">320</span><h3 title="מהותיות בתכנון ובביצוע של ביקורת">מהותיות בתכנון ובביצוע</h3><span class="sc"></span><a class="gl" href="./#s-320">לתקן במפרט</a></div>
+<label class="row" data-id="s-320|9–12|279" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>9</bdi>–<bdi>12</bdi></span></span><span class="lb">הגדרת מהותיות לצרכי ביצוע · עדכון המהותיות במהלך הביקורת</span></span><span class="mt">עמ' <span class="n">279</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-320|13|281" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>13</bdi></span></span><span class="lb">מהותיות נמוכה יותר – השלכות</span></span><span class="mt">עמ' <span class="n">281</span> · מסלול <span class="n">2</span> · ×3</span></label>
+<label class="row" data-id="s-320|א13|285" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>א13</bdi></span></span><span class="lb">מדוע מהותיות הביצוע נמוכה</span></span><span class="mt">עמ' <span class="n">285</span> · מסלול <span class="n">3</span> · ×3</span></label>
+</section>
+<section class="std" id="s-330" data-vol="א"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">330</span><h3 title="נוהלי המבקר במענה לסיכונים שהוערכו">נוהלי המבקר במענה לסיכונים</h3><span class="sc"></span><a class="gl" href="./#s-330">לתקן במפרט</a></div>
+<label class="row note" data-id="s-330|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>315</b></span></label>
+<label class="row" data-id="s-330|4|289" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>4</bdi></span></span><span class="lb">דוגמאות למענה כולל</span></span><span class="mt">עמ' <span class="n">289</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-330|44|297" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>44</bdi></span></span><span class="lb">סיכון משמעותי – בקרות בתקופה הנוכחית</span></span><span class="mt">עמ' <span class="n">297</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-330|49–52|299" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>49</bdi>–<bdi>52</bdi></span></span><span class="lb">נהלים מבססים לכל סוג מהותי · נהלים מבססים ספציפיים לסיכון משמעותי · בדיקות פרטים לסיכון משמעותי</span></span><span class="mt">עמ' <span class="n">299</span> · מסלול <span class="n">3</span> · ×6</span></label>
+</section>
+<section class="std" id="s-450" data-vol="א"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">450</span><h3 title="הערכת ההשפעה של הצגות מוטעות שזוהו במהלך הביקורת">הערכת ההשפעה של הצגות מוטעות</h3><span class="sc"></span><a class="gl" href="./#s-450">לתקן במפרט</a></div>
+<label class="row note" data-id="s-450|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>320</b></span></label>
+<label class="row" data-id="s-450|1א–5|313" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>1א</bdi>–<bdi>5</bdi></span></span><span class="lb">הצגות מהותיות שלא תוקנו – תקן 705 · צבירה למעט זניחות בעליל</span></span><span class="mt">עמ' <span class="n">313</span> · מסלול <span class="n">1</span> · ×6</span></label>
+<label class="row" data-id="s-450|11–12|315" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>11</bdi>–<bdi>12</bdi></span></span><span class="lb">מהותיות בנפרד או במצטבר · דיווח בכתב – למי ומתי</span></span><span class="mt">עמ' <span class="n">315</span> · מסלול <span class="n">2</span> · ×6</span></label>
+<label class="row" data-id="s-450|15–א2|317" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>15</bdi>–<bdi>א2</bdi></span></span><span class="lb">תיעוד נייר העבודה · זניח בעליל מול לא מהותי</span></span><span class="mt">עמ' <span class="n">317</span> · מסלול <span class="n">3</span> · ×6</span></label>
+<label class="row" data-id="s-450|א3–א6|319" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>א3</bdi>–<bdi>א6</bdi></span></span><span class="lb">מתחת לסף אך לא זניח · שלושת סוגי ההצגות המוטעות</span></span><span class="mt">עמ' <span class="n">319</span> · מסלול <span class="n">4</span> · ×6</span></label>
+<label class="row" data-id="s-450|א21|323" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>א21</bdi></span></span><span class="lb">נסיבות איכותיות למהותיות</span></span><span class="mt">עמ' <span class="n">323</span> · מסלול <span class="n">5</span> · ×4</span></label>
+</section>
+<section class="std" id="s-500" data-vol="א"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">500</span><h3 title="ראיות ביקורת">ראיות ביקורת</h3><span class="sc"></span><a class="gl" href="./#s-500">לתקן במפרט</a></div>
+<label class="row" data-id="s-500|11–17|329" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>11</bdi>–<bdi>17</bdi></span></span><span class="lb">מידע שהופק על-ידי המבוקר · רשימות המצגים לפי קבוצה</span></span><span class="mt">עמ' <span class="n">329</span> · מסלול <span class="n">1</span> · ×10</span></label>
+</section>
+<section class="std" id="s-501" data-vol="א"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">501</span><h3 title="ראיות ביקורת – שיקולים נוספים לגבי פריטים מסוימים">ראיות ביקורת: פריטים מסוימים</h3><span class="sc"></span><a class="gl" href="./#s-501">לתקן במפרט</a></div>
+<label class="row" data-id="s-501|5|336" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>5</bdi></span></span><span class="lb">חובת תצפית על ספירה</span></span><span class="mt">עמ' <span class="n">336</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-501|15–25|338" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>15</bdi>–<bdi>25</bdi></span></span><span class="lb">ספירה שלא בתום התקופה · מלאי אצל צד שלישי · סירוב – הגבלה בהיקף</span></span><span class="mt">עמ' <span class="n">338</span> · מסלול <span class="n">2</span> · ×6</span></label>
+<label class="row" data-id="s-501|נ|341" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">341</span> · מסלול <span class="n">3</span></span></label>
+</section>
+<section class="std" id="s-505" data-vol="א"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">505</span><h3 title="אישורים חיצוניים">אישורים חיצוניים</h3><span class="sc"></span><a class="gl" href="./#s-505">לתקן במפרט</a></div>
+<label class="row" data-id="s-505|6|347" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>6</bdi></span></span><span class="lb">דוגמאות למצבי שימוש</span></span><span class="mt">עמ' <span class="n">347</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-505|24–31|350" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>24</bdi>–<bdi>31</bdi></span></span><span class="lb">תנאים לאישור שלילי · פיקוח ובקרה על המשלוח</span></span><span class="mt">עמ' <span class="n">350</span> · מסלול <span class="n">2</span> · ×4</span></label>
+<label class="row" data-id="s-505|32|352" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>32</bdi></span></span><span class="lb">אי-מענה – נהלים חלופיים</span></span><span class="mt">עמ' <span class="n">352</span> · מסלול <span class="n">3</span> · ×3</span></label>
+</section>
+<section class="std" id="s-510" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">510</span><h3 title="ביקורת יתרות פתיחה בגוף בו עורך המבקר ביקורת לראשונה">יתרות פתיחה בביקורת ראשונה</h3><span class="sc"></span><a class="gl" href="./#s-510">לתקן במפרט</a></div>
+<label class="row" data-id="s-510|7|356" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>7</bdi></span></span><span class="lb">הסתמכות על מבקר קודם ישראלי</span></span><span class="mt">עמ' <span class="n">356</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-530" data-vol="א"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">530</span><h3 title="דגימה בביקורת">דגימה בביקורת</h3><span class="sc"></span><a class="gl" href="./#s-530">לתקן במפרט</a></div>
+<label class="row" data-id="s-530|24|369" data-color="b"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#37B8E4;--tc:#16202A" title="סימנייה תכלת · שיקול דעת"><span><bdi>24</bdi></span></span><span class="lb">דגימה מול בחירה סלקטיבית</span></span><span class="mt">עמ' <span class="n">369</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-530|נ|376" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">376</span> · מסלול <span class="n">2</span></span></label>
+<label class="row" data-id="s-530|נ2|378" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ2</bdi></span></span><span class="lb">גורמי היקף המדגם וכיוונם</span></span><span class="mt">עמ' <span class="n">378</span> · מסלול <span class="n">3</span> · ×4</span></label>
+</section>
+<section class="std" id="s-540" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">540</span><h3 title="ביקורת אומדנים בחשבונאות">ביקורת אומדנים בחשבונאות</h3><span class="sc"></span><a class="gl" href="./#s-540">לתקן במפרט</a></div>
+<label class="row" data-id="s-540|11|383" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>11</bdi></span></span><span class="lb">שלוש הגישות לביקורת אומדן</span></span><span class="mt">עמ' <span class="n">383</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-545" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">545</span><h3 title="ביקורת המדידה והגילוי של שווי הוגן">מדידה וגילוי של שווי הוגן</h3><span class="sc"></span><a class="gl" href="./#s-545">לתקן במפרט</a></div>
+<label class="row" data-id="s-545|נ|405" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">405</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<section class="std" id="s-560" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">560</span><h3 title="אירועים לאחר תאריך המאזן או לאחר תאריך דוח רואה החשבון המבקר">אירועים לאחר תאריך המאזן</h3><span class="sc"></span><a class="gl" href="./#s-560">לתקן במפרט</a></div>
+<label class="row" data-id="s-560|6–7|417" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>6</bdi>–<bdi>7</bdi></span></span><span class="lb">חובת הנהלים עד תאריך הדוח · ארבעת הנהלים לזיהוי אירועים</span></span><span class="mt">עמ' <span class="n">417</span> · מסלול <span class="n">1</span> · ×7</span></label>
+<label class="row" data-id="s-560|14–17|419" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>14</bdi>–<bdi>17</bdi></span></span><span class="lb">עובדה שנודעה לאחר הפרסום · ההנהלה מתקנת – פעולות המבקר · ההנהלה אינה מתקנת</span></span><span class="mt">עמ' <span class="n">419</span> · מסלול <span class="n">2</span> · ×4</span></label>
+</section>
+<section class="std" id="s-570" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">570</span><h3 title="העסק החי">העסק החי</h3><span class="sc"></span><a class="gl" href="./#s-570">לתקן במפרט</a></div>
+<label class="row note" data-id="s-570|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700 · 705 · 706</b></span></label>
+<label class="row" data-id="s-570|4–8|426" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>4</bdi>–<bdi>8</bdi></span></span><span class="lb">עתיד הנראה לעין – שנה · זיהוי סימני אזהרה מהמקרה</span></span><span class="mt">עמ' <span class="n">426</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-570|9–17|428" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>9</bdi>–<bdi>17</bdi></span></span><span class="lb">גורמים מקלים ותוכניות ההנהלה · נהלים לתוכנית ביקורת · האם הספקות באו על פתרונם · גורמים מקלים – גילוי או הסתייגות · ספקות נשארו – וידוא גילוי</span></span><span class="mt">עמ' <span class="n">428</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-570|18|430" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>18</bdi></span></span><span class="lb">פסקת ספקות משמעותיים וניסוחה</span></span><span class="mt">עמ' <span class="n">430</span> · מסלול <span class="n">3</span> · ×6</span></label>
+<label class="row" data-id="s-570|נ|433" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">433</span> · מסלול <span class="n">4</span></span></label>
+</section>
+<section class="std" id="s-580" data-vol="א"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">580</span><h3 title="הצהרות בכתב לרואה החשבון המבקר">הצהרות בכתב</h3><span class="sc"></span><a class="gl" href="./#s-580">לתקן במפרט</a></div>
+<label class="row" data-id="s-580|נ|461" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">461</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<section class="std" id="s-600" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF85AA;--tc:#16202A">600</span><h3 title="הסתמכות המבקר על מבקרים אחרים בדוחות כספיים מאוחדים">הסתמכות על מבקרים אחרים</h3><span class="sc"></span><a class="gl" href="./#s-600">לתקן במפרט</a></div>
+<label class="row note" data-id="s-600|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>910 (סעיף 12) · 700</b></span></label>
+<label class="row" data-id="s-600|11|474" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>11</bdi></span></span><span class="lb">הנהלים כלפי המבקרים האחרים</span></span><span class="mt">עמ' <span class="n">474</span> · מסלול <span class="n">1</span> · ×4</span></label>
+<label class="row" data-id="s-600|נ1|477" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ1</bdi></span></span><span class="lb">שיעור ניכר – מעל 50% · ארבעת הנהלים הנוספים · קשר לפני תחילת הביקורת</span></span><span class="mt">עמ' <span class="n">477</span> · מסלול <span class="n">2</span> · ×4</span></label>
+</section>
+<section class="std" id="s-610" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF85AA;--tc:#16202A">610</span><h3 title="התחשבות בעבודת הביקורת הפנימית">התחשבות בעבודת הביקורת הפנימית</h3><span class="sc"></span><a class="gl" href="./#s-610">לתקן במפרט</a></div>
+<label class="row" data-id="s-610|3–12|482" data-color="b"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#37B8E4;--tc:#16202A" title="סימנייה תכלת · שיקול דעת"><span><bdi>3</bdi>–<bdi>12</bdi></span></span><span class="lb">הגדרת ביקורת פנימית · השפעת ההערכה המקדמית</span></span><span class="mt">עמ' <span class="n">482</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-620" data-vol="א"><div class="sh"><span class="tg" style="--c:#FF85AA;--tc:#16202A">620</span><h3 title="שימוש בעבודת מומחה">שימוש בעבודת מומחה</h3><span class="sc"></span><a class="gl" href="./#s-620">לתקן במפרט</a></div>
+<label class="row" data-id="s-620|6–10|488" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>6</bdi>–<bdi>10</bdi></span></span><span class="lb">דוגמאות לשימוש במומחה · שיקולים בקביעת הצורך · ספק בכישורים או באובייקטיביות</span></span><span class="mt">עמ' <span class="n">488</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-620|16–17|490" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>16</bdi>–<bdi>17</bdi></span></span><span class="lb">איסור אזכור בדוח בנוסח האחיד · אזכור בדוח הכולל שינוי</span></span><span class="mt">עמ' <span class="n">490</span> · מסלול <span class="n">2</span> · ×4</span></label>
+<label class="row" data-id="s-620|נ|492" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">492</span> · מסלול <span class="n">3</span></span></label>
+</section>
+<section class="std" id="s-700" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">700</span><h3 title="גיבוש חוות דעת ודיווח על דוחות כספיים (מתוקן 2024)">גיבוש חוות דעת ודיווח על דוחות כספיים</h3><span class="sc"></span><a class="gl" href="./#s-700">לתקן במפרט</a></div>
+<label class="row" data-id="s-700|24|506" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>24</bdi></span></span><span class="lb">זיהוי הדוחות והתקופות</span></span><span class="mt">עמ' <span class="n">506</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-700|45-1|511" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>45-1</bdi></span></span><span class="lb">פסקת קישור 910/911</span></span><span class="mt">עמ' <span class="n">511</span> · מסלול <span class="n">2</span> · ×3</span></label>
+<label class="row" data-id="s-700|א29|519" data-color="B"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF" title="סימנייה כחול · קישור לתקן או לחוק אחר"><span><bdi>א29</bdi></span></span><span class="lb">הפניה לתקנות ניירות ערך</span></span><span class="mt">עמ' <span class="n">519</span> · מסלול <span class="n">3</span> · ×3</span></label>
+<label class="row" data-id="s-700|נ|527" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">527</span> · מסלול <span class="n">4</span></span></label>
+</section>
+<section class="std" id="s-701" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">701</span><h3 title="תקשור ענייני מפתח בביקורת בדוח רואה החשבון המבקר הבלתי תלוי">תקשור ענייני מפתח בביקורת</h3><span class="sc"></span><a class="gl" href="./#s-701">לתקן במפרט</a></div>
+<label class="row" data-id="s-701|8|558" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>8</bdi></span></span><span class="lb">הגדרה ושני חלקיה</span></span><span class="mt">עמ' <span class="n">558</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-705" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">705</span><h3 title="שינויים מהנוסח האחיד בחוות הדעת בדוח רואה החשבון המבקר הבלתי תלוי (מתוקן 2024)">שינויים מהנוסח האחיד בחוות הדעת</h3><span class="sc"></span><a class="gl" href="./#s-705">לתקן במפרט</a></div>
+<label class="row note" data-id="s-705|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700</b></span></label>
+<label class="row" data-id="s-705|7–13|587" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>7</bdi>–<bdi>13</bdi></span></span><span class="lb">מתי חוות דעת מסויגת · מתי חוות דעת שלילית · נסיגה מההתקשרות מול הימנעות</span></span><span class="mt">עמ' <span class="n">587</span> · מסלול <span class="n">1</span> · ×6</span></label>
+<label class="row" data-id="s-705|17–23|589" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>17</bdi>–<bdi>23</bdi></span></span><span class="lb">נוסח &quot;פרט להשפעות&quot; · תיאור וכימות ההצגה המוטעית · הסתייגות בשל אי גילוי</span></span><span class="mt">עמ' <span class="n">589</span> · מסלול <span class="n">2</span> · ×4</span></label>
+<label class="row" data-id="s-705|א20|597" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>א20</bdi></span></span><span class="lb">ביטויים כלליים אסורים</span></span><span class="mt">עמ' <span class="n">597</span> · מסלול <span class="n">3</span> · ×3</span></label>
+<label class="row" data-id="s-705|נ|600" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">600</span> · מסלול <span class="n">4</span></span></label>
+</section>
+<section class="std" id="s-706" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">706</span><h3 title="פסקת הדגש עניין ופסקת עניין אחר בדוח רואה החשבון המבקר הבלתי תלוי">פסקת הדגש עניין ופסקת עניין אחר</h3><span class="sc"></span><a class="gl" href="./#s-706">לתקן במפרט</a></div>
+<label class="row note" data-id="s-706|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700</b></span></label>
+<label class="row" data-id="s-706|8–9|620" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>8</bdi>–<bdi>9</bdi></span></span><span class="lb">מתי מוסיפים הדגש עניין · כותרת, הפניה לביאור, נוסח</span></span><span class="mt">עמ' <span class="n">620</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-706|א4-1–א7|623" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>א4-1</bdi>–<bdi>א7</bdi></span></span><span class="lb">אין גילוי נאות – מסתייגים · נסיבות: תביעה, אירוע מאוחר · אינה תחליף להסתייגות</span></span><span class="mt">עמ' <span class="n">623</span> · מסלול <span class="n">2</span> · ×4</span></label>
+<label class="row" data-id="s-706|נ|628" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">628</span> · מסלול <span class="n">3</span></span></label>
+<label class="row" data-id="s-706|נ3|631" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ3</bdi></span></span><span class="lb">נוסח הפסקה ומיקומה</span></span><span class="mt">עמ' <span class="n">631</span> · מסלול <span class="n">4</span> · ×4</span></label>
+</section>
+<section class="std" id="s-710" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">710</span><h3 title="מידע השוואתי – מספרים מקבילים ודוחות כספיים השוואתיים (מתוקן 2024)">מידע השוואתי</h3><span class="sc"></span><a class="gl" href="./#s-710">לתקן במפרט</a></div>
+<label class="row note" data-id="s-710|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700</b></span></label>
+<label class="row" data-id="s-710|א7-1|645" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>א7-1</bdi></span></span><span class="lb">הצגה מחדש – פנייה למבקר הקודם</span></span><span class="mt">עמ' <span class="n">645</span> · מסלול <span class="n">1</span> · ×4</span></label>
+<label class="row" data-id="s-710|נ|649" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">649</span> · מסלול <span class="n">2</span></span></label>
+</section>
+<section class="std" id="s-720" data-vol="א"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">720</span><h3 title="מידע אחר במסמכים המכילים דוחות כספיים מבוקרים">מידע אחר במסמכים המכילים דוחות מבוקרים</h3><span class="sc"></span><a class="gl" href="./#s-720">לתקן במפרט</a></div>
+<label class="row" data-id="s-720|9–10|662" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>9</bdi>–<bdi>10</bdi></span></span><span class="lb">סירוב לתקן את המידע האחר · ייעוץ משפטי; אין התייחסות בדוח</span></span><span class="mt">עמ' <span class="n">662</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-910" data-vol="א"><div class="sh"><span class="tg" style="--c:#37B8E4;--tc:#16202A">910</span><h3 title="ביקורת של בקרה פנימית על דיווח כספי המשולבת עם ביקורת של דוחות כספיים">ביקורת בקרה פנימית משולבת (SOX)</h3><span class="sc"></span><a class="gl" href="./#s-910">לתקן במפרט</a></div>
+<label class="row note" data-id="s-910|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>600 · 240 · 560 · 720 · 700 · חוק החברות</b></span></label>
+<label class="row" data-id="s-910|נב|674" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נב</bdi></span></span><span class="lb">נספח ב&#x27; – נוסח הדוח</span></span><span class="mt">עמ' <span class="n">674</span> · מסלול <span class="n">1</span></span></label>
+<label class="row" data-id="s-910|נח|688" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נח</bdi></span></span><span class="lb">הגדרת חולשה מהותית, ניסוח שלילית</span></span><span class="mt">עמ' <span class="n">688</span> · מסלול <span class="n">2</span> · ×3</span></label>
+</section>
+<section class="std" id="s-911" data-vol="א"><div class="sh"><span class="tg" style="--c:#37B8E4;--tc:#16202A">911</span><h3 title="ביקורת של רכיבי בקרה פנימית על דיווח כספי">ביקורת רכיבי בקרה פנימית (ISOX)</h3><span class="sc"></span><a class="gl" href="./#s-911">לתקן במפרט</a></div>
+<label class="row note" data-id="s-911|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>910</b></span></label>
+<label class="row" data-id="s-911|5–6|695" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>5</bdi>–<bdi>6</bdi></span></span><span class="lb">ארבעת רכיבי הבקרה · מהותיים מאד מול מהותיים</span></span><span class="mt">עמ' <span class="n">695</span> · מסלול <span class="n">1</span> · ×5</span></label>
+<label class="row" data-id="s-911|22–23|701" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>22</bdi>–<bdi>23</bdi></span></span><span class="lb">חולשה מהותית – חוות דעת שלילית · פיסקת קישור והתאמתה</span></span><span class="mt">עמ' <span class="n">701</span> · מסלול <span class="n">2</span> · ×5</span></label>
+<label class="row" data-id="s-911|נא|703" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נא</bdi></span></span><span class="lb">נספח א&#x27; – נוסח הדוח</span></span><span class="mt">עמ' <span class="n">703</span> · מסלול <span class="n">3</span></span></label>
+<label class="row" data-id="s-911|נד|710" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נד</bdi></span></span><span class="lb">נספח ד&#x27; – נוסח הדוח</span></span><span class="mt">עמ' <span class="n">710</span> · מסלול <span class="n">4</span></span></label>
+</section>
+<section class="std" id="s-920" data-vol="א"><div class="sh"><span class="tg" style="--c:#37B8E4;--tc:#16202A">920</span><h3 title="הסכמה של רואה החשבון המבקר להכללת דוחות שלו במסמך הצעה">הסכמה להכללת דוחות במסמך הצעה</h3><span class="sc"></span><a class="gl" href="./#s-920">לתקן במפרט</a></div>
+<label class="row note" data-id="s-920|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700 · 2410</b></span></label>
+<label class="row" data-id="s-920|נ|731" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">731</span> · מסלול <span class="n">1</span></span></label>
+<label class="row" data-id="s-920|נד|742" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נד</bdi></span></span><span class="lb">נספח ד&#x27; – נוסח הדוח</span></span><span class="mt">עמ' <span class="n">742</span> · מסלול <span class="n">2</span></span></label>
+</section>
+<section class="std" id="s-2410" data-vol="א"><div class="sh"><span class="tg" style="--c:#B46AE2;--tc:#16202A">2410</span><h3 title="סקירה של מידע כספי לתקופות ביניים הנערכת על ידי רואה החשבון המבקר של הישות – גוף התקן">סקירת מידע כספי לתקופות ביניים</h3><span class="sc"></span><a class="gl" href="./#s-2410">לתקן במפרט</a></div>
+<label class="row note" data-id="s-2410|note" data-color=""><input type="checkbox"><span class="top1"><span class="pen">&#9998; לכתוב ליד כותרת התקן:</span> <b>700 · 705</b></span></label>
+<label class="row" data-id="s-2410|7–9|752" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>7</bdi>–<bdi>9</bdi></span></span><span class="lb">מטרת הסקירה ורמת הביטחון · ההבדל מביקורת · אין ביטחון סביר</span></span><span class="mt">עמ' <span class="n">752</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-2410|17–18|755" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>17</bdi>–<bdi>18</bdi></span></span><span class="lb">רואה חשבון שמונה לאחרונה · בירורים עם המבקר הקודם</span></span><span class="mt">עמ' <span class="n">755</span> · מסלול <span class="n">2</span> · ×3</span></label>
+<label class="row" data-id="s-2410|24|758" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>24</bdi></span></span><span class="lb">מכתב לעורך הדין</span></span><span class="mt">עמ' <span class="n">758</span> · מסלול <span class="n">3</span> · ×4</span></label>
+<label class="row" data-id="s-2410|36|761" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>36</bdi></span></span><span class="lb">אי התאמה במידע האחר</span></span><span class="mt">עמ' <span class="n">761</span> · מסלול <span class="n">4</span> · ×3</span></label>
+<label class="row" data-id="s-2410|48–56|765" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>48</bdi>–<bdi>56</bdi></span></span><span class="lb">הגבלה מונעת השלמת הסקירה · הודעה בכתב על הסיבה · נסיבות נדירות – מסקנה מסוייגת · עסק חי – הדגש עניין</span></span><span class="mt">עמ' <span class="n">765</span> · מסלול <span class="n">5</span> · ×7</span></label>
+<label class="row" data-id="s-2410|נ|769" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">769</span> · מסלול <span class="n">6</span></span></label>
+<label class="row" data-id="s-2410|נ4|783" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ4</bdi></span></span><span class="lb">ליקויים בנוסח האחיד התמציתי</span></span><span class="mt">עמ' <span class="n">783</span> · מסלול <span class="n">7</span> · ×5</span></label>
+<label class="row" data-id="s-2410|נ5|787" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ5</bdi></span></span><span class="lb">כותרות ונוסח המסקנה המסוייגת</span></span><span class="mt">עמ' <span class="n">787</span> · מסלול <span class="n">8</span> · ×5</span></label>
+<label class="row" data-id="s-2410|נ8|814" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ8</bdi></span></span><span class="lb">פיסקת הדגש עניין בסקירה</span></span><span class="mt">עמ' <span class="n">814</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-3000" data-vol="א"><div class="sh"><span class="tg" style="--c:#B46AE2;--tc:#16202A">3000</span><h3 title="תקן בחינת מהימנות (ישראל) 3000 – דוחות מיוחדים של רואי חשבון">דוחות מיוחדים של רואי חשבון</h3><span class="sc"></span><a class="gl" href="./#s-3000">לתקן במפרט</a></div>
+<label class="row" data-id="s-3000|8–11|818" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>8</bdi>–<bdi>11</bdi></span></span><span class="lb">רק בתחום עיסוקו המקצועי · מתכונת חוות דעת ומרכיביה · מתי מותר המונח &quot;אישור&quot;</span></span><span class="mt">עמ' <span class="n">818</span> · מסלול <span class="n">1</span> · ×7</span></label>
+<label class="row" data-id="s-3000|15|820" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>15</bdi></span></span><span class="lb">הנמען – הלקוח ולא הרשות</span></span><span class="mt">עמ' <span class="n">820</span> · מסלול <span class="n">2</span> · ×5</span></label>
+</section>
+<section class="std" id="s-4405" data-vol="א"><div class="sh"><span class="tg" style="--c:#B46AE2;--tc:#16202A">4405</span><h3 title="הנחיית שירותים קשורים (ישראל) 4405 – דוח רואה חשבון מבקר על דוח המוגש לרשות ניירות ערך על ידי חברה שהיא יועץ השקעות או מנהל תיקים">דוח על דוח יועץ השקעות / מנהל תיקים</h3><span class="sc"></span><a class="gl" href="./#s-4405">לתקן במפרט</a></div>
+<label class="row" data-id="s-4405|נ|822" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נוסחי דוח</span></span><span class="mt">עמ' <span class="n">822</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<p class="sideonly"><b>סימניית צד בלבד:</b> <b>250</b> התייחסות להוראות חוק ורגולציה · <b>402</b> גופים המשתמשים בלשכות שירות · <b>520</b> נהלים אנליטיים · <b>550</b> עסקאות עם צדדים קשורים · <b>690</b> ביקורת משותפת · <b>4410</b> דוחות כספיים ודוחות חשבונאיים בלתי מבוקרים</p></div>
+<div class="vol" data-vol="ב"><h2>כרך ב&#x27; · התנהגות מקצועית, תקנות ומדריכים</h2>
+<section class="std" id="s-b-rules60" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">1</span><h3 title="כללי ההתנהגות המקצועית עפ&quot;י תקנה 60">כללי ההתנהגות המקצועית (תקנה 60)</h3><span class="sc"></span><a class="gl" href="./#s-b-rules60">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-rules60|5–14|4" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>5</bdi>–<bdi>14</bdi></span></span><span class="lb">סודיות ושלושת החריגים · שותפות עם מי שאינו חבר · חתימה בשם רואה החשבון · שכר מותנה, ללא תמורה, 2/3 · שיתוף בהכנסות ודמי מוניטין</span></span><span class="mt">עמ' <span class="n">4</span> · מסלול <span class="n">1</span> · ×10</span></label>
+<label class="row" data-id="s-b-rules60|15–17|6" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>15</bdi>–<bdi>17</bdi></span></span><span class="lb">שימוש עסקי במשרד · לקוח של חבר – הסכמה · פרסומת מותרת ואסורה</span></span><span class="mt">עמ' <span class="n">6</span> · מסלול <span class="n">2</span> · ×11</span></label>
+</section>
+<section class="std" id="s-b-appoint" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">2</span><h3 title="תדריך לרואה חשבון בעת קבלת מינוי בו קדם לו רו&quot;ח אחר">תדריך: קבלת מינוי כשקדם רו&quot;ח אחר</h3><span class="sc"></span><a class="gl" href="./#s-b-appoint">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-appoint|1|8" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>1</bdi></span></span><span class="lb">פנייה בכתב ונימוקי התנגדות</span></span><span class="mt">עמ' <span class="n">8</span> · מסלול <span class="n">1</span> · ×5</span></label>
+</section>
+<section class="std" id="s-b-docs-keep" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">3</span><h3 title="תדריך בדבר שמירת מסמכים">תדריך: שמירת מסמכים</h3><span class="sc"></span><a class="gl" href="./#s-b-docs-keep">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-docs-keep|1|10" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>1</bdi></span></span><span class="lb">תקופות שמירה: 7 ו-16</span></span><span class="mt">עמ' <span class="n">10</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-b-docs-hold" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">4</span><h3 title="תדריך בדבר מסמכים המצויים ברשותו של רואה חשבון והנוגעים לעבודת ביקורת">תדריך: מסמכים ברשות רו&quot;ח</h3><span class="sc"></span><a class="gl" href="./#s-b-docs-hold">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-docs-hold|2א–2ג|12" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>2א</bdi>–<bdi>2ג</bdi></span></span><span class="lb">בעלות על ניירות העבודה · מסמכים שהוכנו עבור הלקוח · אין זכות עיכבון במסמכי מקור</span></span><span class="mt">עמ' <span class="n">12</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-b-tax" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">5</span><h3 title="תדריך בדבר כללי התנהגות מקצועית לרואי חשבון בפרקטיקה במסים">תדריך: פרקטיקה במסים</h3><span class="sc"></span><a class="gl" href="./#s-b-tax">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-tax|11–12|15" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>11</bdi>–<bdi>12</bdi></span></span><span class="lb">דוח כוזב או מטעה · טעות בדוח שהוגש</span></span><span class="mt">עמ' <span class="n">15</span> · מסלול <span class="n">1</span> · ×5</span></label>
+</section>
+<section class="std" id="s-b-av" data-vol="ב"><div class="sh"><span class="tg" style="--c:#F8E43C;--tc:#16202A">6</span><h3 title="תקני ביקורת ודיווח">תקני ביקורת ודיווח (תקני אב)</h3><span class="sc"></span><a class="gl" href="./#s-b-av">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-av|5–10|16" data-color="G"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#61D63D;--tc:#16202A" title="סימנייה ירוק · מה המבקר חייב לעשות"><span><bdi>5</bdi>–<bdi>10</bdi></span></span><span class="lb">מניית תקני הביקורת</span></span><span class="mt">עמ' <span class="n">16</span> · מסלול <span class="n">1</span> · ×4</span></label>
+</section>
+<section class="std" id="s-b-guide320" data-vol="ב"><div class="sh"><span class="tg" style="--c:#2D5CE3;--tc:#FFFFFF">8</span><h3 title="מדריך פרקטי ליישום תקן ביקורת (ישראל) 320 ותקן ביקורת (ישראל) 450">מדריך פרקטי ליישום 320 ו־450</h3><span class="sc"></span><a class="gl" href="./#s-b-guide320">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-guide320|3.1|22" data-color="b"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#37B8E4;--tc:#16202A" title="סימנייה תכלת · שיקול דעת"><span><bdi>3.1</bdi></span></span><span class="lb">נקודות ייחוס וטווחי אחוזים</span></span><span class="mt">עמ' <span class="n">22</span> · מסלול <span class="n">1</span> · ×3</span></label>
+<label class="row" data-id="s-b-guide320|4|24" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>4</bdi></span></span><span class="lb">50%–85% והגורמים לקביעה</span></span><span class="mt">עמ' <span class="n">24</span> · מסלול <span class="n">2</span> · ×3</span></label>
+<label class="row" data-id="s-b-guide320|10|28" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>10</bdi></span></span><span class="lb">נייר עבודה לצבירת הצגות מוטעות</span></span><span class="mt">עמ' <span class="n">28</span> · מסלול <span class="n">3</span> · ×7</span></label>
+</section>
+<section class="std" id="s-b-special" data-vol="ב"><div class="sh"><span class="tg" style="--c:#B46AE2;--tc:#16202A">10</span><h3 title="דוגמה למתכונת נוסח דוח מיוחד של רואי חשבון">דוגמה למתכונת דוח מיוחד</h3><span class="sc"></span><a class="gl" href="./#s-b-special">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-special||40" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח">—</span><span class="lb">דוח מצורף, חותמת, אחריות · מכל הבחינות המהותיות</span></span><span class="mt">עמ' <span class="n">40</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-b-9c" data-vol="ב"><div class="sh"><span class="tg" style="--c:#B46AE2;--tc:#16202A">11</span><h3 title="דוח מיוחד של רואה החשבון המבקר על מידע כספי נפרד לפי תקנה 9ג&#x27; לתקנות ניירות ערך (דוחות תקופתיים ומיידיים), התש&quot;ל-1970">דוח מיוחד: מידע כספי נפרד (תקנה 9ג&#x27;)</h3><span class="sc"></span><a class="gl" href="./#s-b-9c">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-9c|נ|42" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נוסחי דוח</span></span><span class="mt">עמ' <span class="n">42</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<section class="std" id="s-b-conduct1955" data-vol="ב"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">13</span><h3 title="תקנות רואי חשבון (דרך פעולתו של רואה חשבון)">חוק רו&quot;ח ותקנות דרך פעולתו</h3><span class="sc"></span><a class="gl" href="./#s-b-conduct1955">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-conduct1955|9|48" data-color="O"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF8B3E;--tc:#16202A" title="סימנייה כתום · דיווח, תקשור ותיעוד"><span><bdi>9</bdi></span></span><span class="lb">רישומים שיטתיים כראיה</span></span><span class="mt">עמ' <span class="n">48</span> · מסלול <span class="n">1</span> · ×3</span></label>
+</section>
+<section class="std" id="s-b-unbecoming1965" data-vol="ב"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">14</span><h3 title="תקנות רואי חשבון (התנהגות שאינה הולמת את כבוד המקצוע), התשכ&quot;ה–1965">התנהגות שאינה הולמת (1965)</h3><span class="sc"></span><a class="gl" href="./#s-b-unbecoming1965">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-unbecoming1965|1א(3)–(12)|52" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>1א(3)</bdi>–<bdi>(12)</bdi></span></span><span class="lb">סודיות ושלושת החריגים · הרשאה לחתום בשמו · שיתוף בהכנסות · לקוח של רואה חשבון אחר</span></span><span class="mt">עמ' <span class="n">52</span> · מסלול <span class="n">1</span> · ×11</span></label>
+<label class="row" data-id="s-b-unbecoming1965|1א(14)–2|54" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>1א(14)</bdi>–<bdi>2</bdi></span></span><span class="lb">שכר לפי תוצאות · פרסומת מותרת</span></span><span class="mt">עמ' <span class="n">54</span> · מסלול <span class="n">2</span> · ×3</span></label>
+</section>
+<section class="std" id="s-b-conflict2008" data-vol="ב"><div class="sh"><span class="tg" style="--c:#FF8B3E;--tc:#16202A">15</span><h3 title="תקנות רואי חשבון (ניגוד עניינים ופגיעה באי-תלות כתוצאה מעיסוק אחר), התשס&quot;ח–2008">ניגוד עניינים ופגיעה באי־תלות (2008)</h3><span class="sc"></span><a class="gl" href="./#s-b-conflict2008">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-conflict2008|1–2(א)|56" data-color="P"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#EE2F86;--tc:#16202A" title="סימנייה ורוד זוהר · מושג או הגדרה"><span><bdi>1</bdi>–<bdi>2(א)</bdi></span></span><span class="lb">סיווג האדם שבמקרה · כל שותף מול צוות הביקורת · חוות דעת לצורכי מס</span></span><span class="mt">עמ' <span class="n">56</span> · מסלול <span class="n">1</span> · ×6</span></label>
+<label class="row" data-id="s-b-conflict2008|2(ב)(1)–(12)|58" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>2(ב)(1)</bdi>–<bdi>(12)</bdi></span></span><span class="lb">שכר טרחה מותנה בתוצאות · קשר עסקי מהותי, נושא משרה · קרוב מחזיק בשיעור כלשהו · בן משפחה מחזיק 10% · בן משפחה עובד הלקוח · בן משפחה נושא משרה</span></span><span class="mt">עמ' <span class="n">58</span> · מסלול <span class="n">2</span> · ×6</span></label>
+<label class="row" data-id="s-b-conflict2008|2(ב)(14)–3(13)|60" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>2(ב)(14)</bdi>–<bdi>3(13)</bdi></span></span><span class="lb">השתתפות בהחלטות ניהוליות · מבקר פנימי של הלקוח · הנהלת חשבונות למבוקר</span></span><span class="mt">עמ' <span class="n">60</span> · מסלול <span class="n">3</span> · ×5</span></label>
+<label class="row" data-id="s-b-conflict2008|7(3)|63" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>7(3)</bdi></span></span><span class="lb">קרוב המועסק על ידי המדינה</span></span><span class="mt">עמ' <span class="n">63</span> · מסלול <span class="n">4</span> · ×3</span></label>
+</section>
+<section class="std" id="s-b-indep9b" data-vol="ב"><div class="sh"><span class="tg" style="--c:#EE2F86;--tc:#16202A">17</span><h3 title="אי תלות המבקר – החלטה לפי סעיף 9ב לחוק ניירות ערך, התשכ&quot;ח–1968">אי תלות המבקר: החלטה לפי 9ב</h3><span class="sc"></span><a class="gl" href="./#s-b-indep9b">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-indep9b|א.5–ג.1.1.2|71" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>א.5</bdi>–<bdi>ג.1.1.2</bdi></span></span><span class="lb">אי תלות בפועל ובמראית · סיווג האדם שבמקרה · בן משפחה מחזיק – מהותיות</span></span><span class="mt">עמ' <span class="n">71</span> · מסלול <span class="n">1</span> · ×8</span></label>
+<label class="row" data-id="s-b-indep9b|ג.1.4.1–ג.4.3|73" data-color="Y"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#F8E43C;--tc:#16202A" title="סימנייה צהוב · גבול: חריג, תנאי, איסור, מועד, סף"><span><bdi>ג.1.4.1</bdi>–<bdi>ג.4.3</bdi></span></span><span class="lb">קשר עסקי, השכרת משרד · שכר טרחה מותנה · חוב שכר טרחה שלא נפרע · 15% מהכנסות הפירמה · שכר ביקורת פחות ממחצית · ייעוץ שהוא ניהול · שירות שיבוקר בידי המבקר · מבקר פנים של המבוקר</span></span><span class="mt">עמ' <span class="n">73</span> · מסלול <span class="n">2</span> · ×8</span></label>
+<label class="row" data-id="s-b-indep9b|ג.6.1|75" data-color="p"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#FF85AA;--tc:#16202A" title="סימנייה ורוד בהיר · מצב אצל המבוקר"><span><bdi>ג.6.1</bdi></span></span><span class="lb">קרבה לנושא משרה</span></span><span class="mt">עמ' <span class="n">75</span> · מסלול <span class="n">3</span> · ×4</span></label>
+</section>
+<section class="std" id="s-b-underwriter" data-vol="ב"><div class="sh"><span class="tg" style="--c:#37B8E4;--tc:#16202A">18</span><h3 title="נוסח מכתב רואי החשבון המבקרים לחתם במסגרת הנפקה לראשונה לציבור">נוסח מכתב רו&quot;ח לחתם בהנפקה</h3><span class="sc"></span><a class="gl" href="./#s-b-underwriter">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-underwriter|נ|79" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נוסחי דוח</span></span><span class="mt">עמ' <span class="n">79</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<section class="std" id="s-b-old700" data-vol="ב"><div class="sh"><span class="tg" style="--c:#61D63D;--tc:#16202A">19</span><h3 title="תקני 700, 705 ו־710 בנוסחם הקודם">700 · 705 · 710 הישנים</h3><span class="sc"></span><a class="gl" href="./#s-b-old700">לתקן במפרט</a></div>
+<label class="row" data-id="s-b-old700|נ|101" data-color="V"><input type="checkbox"><span class="top1"><span class="tg" style="--c:#B46AE2;--tc:#16202A" title="סימנייה סגול · נספחים ונוסחי דוח"><span><bdi>נ</bdi></span></span><span class="lb">נספחים</span></span><span class="mt">עמ' <span class="n">101</span> · מסלול <span class="n">1</span></span></label>
+</section>
+<p class="sideonly"><b>סימניית צד בלבד:</b> <b>7</b> הבהרה: המחאות ריקות חתומות מראש · <b>9</b> מדריך פרקטי ליישום 250 · <b>12</b> דוח מיוחד: סקירת מידע ביניים נפרד (תקנה 38ד&#x27;) · <b>16</b> הנחיות מבקר המדינה (2018)</p></div>
+<p class="empty hide" id="empty">אין שורות שמתאימות למסננים שנבחרו.</p>
+</main>
+<script>(function(){
+  var KEY='mg-bm-v1', state={};
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  function load(){ state={}; try{ var v=JSON.parse(localStorage.getItem(KEY)||'{}'); if(v&&typeof v==='object'&&!Array.isArray(v)) state=v; }catch(e){} }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var rows=$$('.row'), cards=$$('.std'), vols=$$('.vol'), total=rows.length;
+  var f={vol:'',color:'',rest:false};
+  function applyState(){ rows.forEach(function(r){ var on=!!state[r.dataset.id]; r.querySelector('input').checked=on; r.classList.toggle('done',on); }); }
+  function counters(){
+    var done=0;
+    cards.forEach(function(c){
+      var rs=$$('.row',c), d=rs.filter(function(r){return r.classList.contains('done')}).length; done+=d;
+      $('.sc',c).textContent = d===rs.length ? '✓' : d+'/'+rs.length;
+      c.classList.toggle('all',d===rs.length);
+    });
+    $('#cnt').textContent='הודבקו '+done+' מתוך '+total;
+    var pb=$('#pb'); pb.firstElementChild.style.width=(total?100*done/total:0)+'%'; pb.setAttribute('aria-valuenow',done);
+  }
+  function filter(){
+    var shown=0;
+    rows.forEach(function(r){
+      var c=r.closest('.std'), ok=(!f.vol||c.dataset.vol===f.vol)&&(!f.color||r.dataset.color===f.color)&&(!f.rest||!r.classList.contains('done'));
+      r.classList.toggle('hide',!ok); if(ok) shown++;
+    });
+    cards.forEach(function(c){ c.classList.toggle('hide',!$('.row:not(.hide)',c)); });
+    vols.forEach(function(v){
+      var any=!!$('.std:not(.hide)',v), so=$('.sideonly',v);
+      v.classList.toggle('hide',!any);
+      if(so) so.classList.toggle('hide',!!f.color||!!f.rest||(!!f.vol&&f.vol!==v.dataset.vol));
+    });
+    $('#shown').textContent='מוצגות '+shown+' שורות';
+    $('#empty').classList.toggle('hide',shown>0);
+  }
+  function refresh(){ counters(); filter(); }
+  document.addEventListener('change',function(e){
+    var i=e.target; if(!i.matches||!i.matches('.row input')) return;
+    var r=i.closest('.row'); if(i.checked) state[r.dataset.id]=1; else delete state[r.dataset.id];
+    r.classList.toggle('done',i.checked); save(); refresh();
+  });
+  function toggleBtn(btn,key,val){
+    var on=btn.getAttribute('aria-pressed')==='true';
+    $$('[data-f="'+key+'"]').forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    if(!on) btn.setAttribute('aria-pressed','true');
+    f[key]=on?'':val; filter();
+  }
+  $$('[data-f="vol"]').forEach(function(b){ b.addEventListener('click',function(){ toggleBtn(b,'vol',b.dataset.v); }); });
+  $$('[data-f="color"]').forEach(function(b){ b.addEventListener('click',function(){ toggleBtn(b,'color',b.dataset.v); }); });
+  $('#rest').addEventListener('click',function(){ var b=this, on=b.getAttribute('aria-pressed')==='true'; b.setAttribute('aria-pressed',on?'false':'true'); f.rest=!on; filter(); });
+  $('#reset').addEventListener('click',function(){
+    if(!confirm('למחוק את כל הסימונים בדף הזה?')) return;
+    state={}; save(); applyState(); refresh();
+  });
+  window.addEventListener('storage',function(e){ if(e.key===KEY){ load(); applyState(); refresh(); } });
+  function setHH(){ document.documentElement.style.setProperty('--hh',$('header.top').offsetHeight+'px'); }
+  function goHash(){
+    var id=''; try{ id=decodeURIComponent(location.hash.slice(1)); }catch(e){ id=location.hash.slice(1); }
+    var el=id&&document.getElementById(id); if(el&&el.classList.contains('std')){ if(el.classList.contains('hide')) return; el.scrollIntoView(); }
+  }
+  load(); applyState(); refresh(); setHH();
+  window.addEventListener('resize',setHH);
+  if(window.ResizeObserver) new ResizeObserver(setHH).observe($('header.top'));
+  window.addEventListener('hashchange',goHash);
+  goHash();
+  window.addEventListener('load',function(){ setHH(); goHash(); });
+})();</script>
+</body>
+</html>

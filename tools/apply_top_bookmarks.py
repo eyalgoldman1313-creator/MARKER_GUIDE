@@ -29,7 +29,8 @@ def strip_html(std):
     real = [b for b in bms if not b['side']]
     if not bms:
         return '<div class="tbm none"><b class="tbm-h">סימניות עליונות</b><span>אין · סימניית צד בלבד</span></div>\n'
-    out = ['<div class="tbm"><b class="tbm-h">סימניות עליונות <i>%d</i></b><div class="tbm-l">' % len(real)]
+    out = ['<div class="tbm"><b class="tbm-h">סימניות עליונות <i>%d</i><a class="tbm-go" href="bookmarks.html#%s">לרשימת ההדבקה</a></b>'
+           '<div class="tbm-l">' % (len(real), esc(std['sid']))]
     for b in bms:
         meta = []
         if b['page'] is not None: meta.append("עמ' %d" % b['page'])
@@ -47,10 +48,16 @@ def strip_html(std):
     return ''.join(out)
 
 
+PILL = '<a class="nl-ext" href="bookmarks.html">רשימת הדבקה</a>'
+
 CSS = r'''
 /*tbm-start*/
 .tbm{margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 .tbm-h{display:flex;align-items:center;gap:8px;font-size:14.5px;font-weight:900;margin-bottom:8px}
+.tbm-go{margin-inline-start:auto;font-size:12.5px;font-weight:500;color:var(--ink2);text-decoration:none}
+.tbm-go:hover{text-decoration:underline;color:var(--ink)}
+.intro-links .nl-ext{font-size:13.5px;font-weight:700;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.intro-links .nl-ext:hover{border-color:var(--ink2)}
 .tbm-h i{font-style:normal;font-size:12px;font-weight:700;background:var(--ink);color:#fff;border-radius:999px;padding:0 8px}
 .tbm.none{display:flex;gap:10px;align-items:baseline;color:var(--ink2);font-size:14px}
 .tbm.none .tbm-h{margin:0;color:var(--ink)}
@@ -103,6 +110,7 @@ def main():
     s = re.sub(r'<div class="tbm-key">.*?</div>\n', '', s, flags=re.S)
     s = re.sub(r'\n/\*tbm-start\*/.*?/\*tbm-end\*/\n', '', s, flags=re.S)
     s = re.sub(r'<script id="tbm-js">.*?</script>', '', s, flags=re.S)
+    s = re.sub(r'<a class="nl-ext" href="bookmarks\.html">[^<]*</a>', '', s)
 
     n = 0
     for std in data['standards']:
@@ -119,6 +127,9 @@ def main():
 
     key = '<div class="tbm-key"><b>צבע הסימנייה העליונה:</b>' + ''.join(
         '<span><i class="tg sm" style="--c:%s"></i>%s · %s</span>' % (c['hex'], c['name'], MEANING[k]) for k, c in data['colors'].items()) + '</div>\n'
+    m = re.search(r'<div class="intro-links">.*?(\s*)</div>', s, re.S)
+    assert m, 'intro-links'
+    s = s[:m.start(1)] + PILL + s[m.start(1):]
     anchor = '<div class="bar" id="bar">'
     assert s.count(anchor) == 1
     s = s.replace(anchor, key + anchor)
