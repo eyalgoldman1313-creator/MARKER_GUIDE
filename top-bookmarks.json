@@ -153,8 +153,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       2,
       7,
@@ -172,7 +172,7 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       39
@@ -189,7 +189,7 @@
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": 2,
+     "lane": 3,
      "side": false,
      "rows": []
     }
@@ -959,8 +959,8 @@
      "color": "G",
      "color_name": "ירוק",
      "hex": "#61D63D",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       0
      ]
@@ -978,7 +978,7 @@
      "color": "p",
      "color_name": "ורוד בהיר",
      "hex": "#FF85AA",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       22,
@@ -997,7 +997,7 @@
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": 2,
+     "lane": 3,
      "side": false,
      "rows": []
     }
@@ -1022,8 +1022,8 @@
      "color": "p",
      "color_name": "ורוד בהיר",
      "hex": "#FF85AA",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       6
      ]
@@ -1040,7 +1040,7 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       31,
@@ -1058,7 +1058,7 @@
      "color": "G",
      "color_name": "ירוק",
      "hex": "#61D63D",
-     "lane": 2,
+     "lane": 3,
      "side": false,
      "rows": [
       51
@@ -1292,8 +1292,8 @@
      "color": "p",
      "color_name": "ורוד בהיר",
      "hex": "#FF85AA",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       0
      ]
@@ -1313,7 +1313,7 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       15,
@@ -1333,7 +1333,7 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": 2,
+     "lane": 3,
      "side": false,
      "rows": [
       42
@@ -1350,7 +1350,7 @@
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": 3,
+     "lane": 4,
      "side": false,
      "rows": []
     }
@@ -1449,8 +1449,8 @@
      "color": "b",
      "color_name": "תכלת",
      "hex": "#37B8E4",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       3,
       18
@@ -2224,8 +2224,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       6,
       13,
@@ -2243,7 +2243,7 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       44
@@ -2266,12 +2266,12 @@
      ],
      "page": 822,
      "count": 0,
-     "label": "נספחים",
+     "label": "נוסחי דוח",
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": []
     }
    ]
@@ -2308,8 +2308,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       3,
       10,
@@ -2331,7 +2331,7 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       36,
@@ -2360,8 +2360,8 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       0
      ]
@@ -2387,8 +2387,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       0
      ]
@@ -2416,8 +2416,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       0,
       5,
@@ -2446,8 +2446,8 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       7,
       10
@@ -2474,8 +2474,8 @@
      "color": "G",
      "color_name": "ירוק",
      "hex": "#61D63D",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       2
      ]
@@ -2581,8 +2581,8 @@
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       1,
       12
@@ -2605,12 +2605,12 @@
      ],
      "page": 42,
      "count": 0,
-     "label": "נספחים",
+     "label": "נוסחי דוח",
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": []
     }
    ]
@@ -2643,8 +2643,8 @@
      "color": "O",
      "color_name": "כתום",
      "hex": "#FF8B3E",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       5
      ]
@@ -2673,8 +2673,8 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       5,
       15,
@@ -2694,7 +2694,7 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       32,
@@ -2724,8 +2724,8 @@
      "color": "P",
      "color_name": "ורוד זוהר",
      "hex": "#EE2F86",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": [
       16
      ]
@@ -2746,7 +2746,7 @@
      "color": "p",
      "color_name": "ורוד בהיר",
      "hex": "#FF85AA",
-     "lane": 1,
+     "lane": 2,
      "side": false,
      "rows": [
       23,
@@ -2770,7 +2770,7 @@
      "color": "p",
      "color_name": "ורוד בהיר",
      "hex": "#FF85AA",
-     "lane": 2,
+     "lane": 3,
      "side": false,
      "rows": [
       58,
@@ -2788,7 +2788,7 @@
      "color": "Y",
      "color_name": "צהוב",
      "hex": "#F8E43C",
-     "lane": 3,
+     "lane": 4,
      "side": false,
      "rows": [
       85
@@ -2896,12 +2896,12 @@
      ],
      "page": 79,
      "count": 0,
-     "label": "נספחים",
+     "label": "נוסחי דוח",
      "color": "V",
      "color_name": "סגול",
      "hex": "#B46AE2",
-     "lane": null,
-     "side": true,
+     "lane": 1,
+     "side": false,
      "rows": []
     }
    ]
